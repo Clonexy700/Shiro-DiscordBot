@@ -59,7 +59,6 @@ async def on_member_join(member):
 
 @client.command(name='help', pass_context=True)
 async def help(ctx):
-    author = ctx.message.author
 
     eset = discord.Embed(
         color=discord.Colour.dark_purple()

@@ -3510,12 +3510,14 @@ class RPGgame(commands.Cog):
                                     await ctx.send(
                                         f"{member.mention} Your character is now level {self.users[member_id]['level']}")
                                 self.users[member_id]['storyfantasy'] = 15
-                        if self.users[member_id]['storyfantasy'] == 15:
-                            dead_forest = discord.Embed(
-                                color=discord.Colour.dark_purple()
-                            )
-                            dead_forest.add_field(name='later', value='later')
-                            dead_forest.set_image(
-                                url='https://i.pinimg.com/originals/f7/32/b1/f732b1dc5a5056ab1ae5fcb0c169e442.jpg')
+        if self.users[member_id]['storyfantasy'] == 15:
+            dead_forest = discord.Embed(
+                color=discord.Colour.dark_purple()
+            )
+            dead_forest.add_field(name='Location', value='You came into dead forest and this place looking very dangerous. I see 3 ways to go, which one should i choose? First way is...')
+            dead_forest.set_image(
+                url='https://i.pinimg.com/originals/f7/32/b1/f732b1dc5a5056ab1ae5fcb0c169e442.jpg')
+            await ctx.send(embed=dead_forest)
+
 def setup(client):
     client.add_cog(RPGgame(client))
