@@ -46,38 +46,46 @@ class RPGgame(commands.Cog):
             return inner_check
 
         embed = discord.Embed(
-            color = discord.Colour.dark_purple()
+            color=discord.Colour.dark_purple()
         )
-        embed.add_field(name='Race choose menu', value='Choose your race! Write in chat for example ```1``` and other numbers for choosing a race of your character! \n 1) Human \n 2) Elf \n 3) Succubus \n 4) Draconis \n 5) Neko')
+        embed.add_field(name='Race choose menu',
+                        value='Choose your race! Write in chat for example ```1``` and other numbers for choosing a race of your character! \n 1) Human \n 2) Elf \n 3) Succubus \n 4) Draconis \n 5) Neko')
         await ctx.send(embed=embed)
         embed1 = discord.Embed(
-            color = discord.Colour.dark_purple()
+            color=discord.Colour.dark_purple()
         )
-        embed1.add_field(name='Human', value="Balanced start race. Most balanced race. Start params: \n  strength 15 \n  agility 3\n  intelligence 0\n can't learn magic! \n AngelicLevel 0 \n  DemonicLevel 0 \n Karma 3 \n Have advantage in shop prices and increased loot chance from treasures! ")
+        embed1.add_field(name='Human',
+                         value="Balanced start race. Most balanced race. Start params: \n  strength 15 \n  agility 3\n  intelligence 0\n can't learn magic! \n AngelicLevel 0 \n  DemonicLevel 0 \n Karma 3 \n Have advantage in shop prices and increased loot chance from treasures! ")
         embed1.set_image(url='https://i.ytimg.com/vi/31vXOQjiz-Y/maxresdefault.jpg')
         await ctx.send(embed=embed1)
         embed2 = discord.Embed(
-            color = discord.Colour.dark_purple()
+            color=discord.Colour.dark_purple()
         )
-        embed2.add_field(name='Elf', value="Wise and elder race. Start params: \n  strength 5 \n  agility 5\n  intelligence 20\n Know magic from start! \n AngelicLevel 1 \n  DemonicLevel 0 \n Karma 5 \n Powerful magic spells and angelic level, but low hp!")
-        embed2.set_image(url='https://cdn.discordapp.com/attachments/657178465174552616/657179193595133963/af781f579d19ab28.png')
+        embed2.add_field(name='Elf',
+                         value="Wise and elder race. Start params: \n  strength 5 \n  agility 5\n  intelligence 20\n Know magic from start! \n AngelicLevel 1 \n  DemonicLevel 0 \n Karma 5 \n Powerful magic spells and angelic level, but low hp!")
+        embed2.set_image(
+            url='https://cdn.discordapp.com/attachments/657178465174552616/657179193595133963/af781f579d19ab28.png')
         await ctx.send(embed=embed2)
         embed3 = discord.Embed(
-            color = discord.Colour.dark_purple()
+            color=discord.Colour.dark_purple()
         )
-        embed3.add_field(name='Succubus', value="Demonic powered and forged race. Start params: \n  strength 8 \n  agility 3\n  intelligence 15\n Know magic from start! \n AngelicLevel 0 \n  DemonicLevel 4 \n Karma -30 \n Demonic magic, demonic conversions, demonic level, summons and other!")
-        embed3.set_image(url='https://cdn.discordapp.com/attachments/657178465174552616/657180558828503051/38b34098ee41054c.png')
+        embed3.add_field(name='Succubus',
+                         value="Demonic powered and forged race. Start params: \n  strength 8 \n  agility 3\n  intelligence 15\n Know magic from start! \n AngelicLevel 0 \n  DemonicLevel 4 \n Karma -30 \n Demonic magic, demonic conversions, demonic level, summons and other!")
+        embed3.set_image(
+            url='https://cdn.discordapp.com/attachments/657178465174552616/657180558828503051/38b34098ee41054c.png')
         await ctx.send(embed=embed3)
         embed4 = discord.Embed(
-            color = discord.Colour.dark_purple()
+            color=discord.Colour.dark_purple()
         )
-        embed4.add_field(name='Draconis', value='Very heavy and armored race! Try to punch! Start params: \n  strength 30 \n  agility 2\n  intelligence 10\n Can learn fire magic with level \n AngelicLevel 1 \n  DemonicLevel 1 \n Karma 2 \n Big HP amount and can learn magic')
+        embed4.add_field(name='Draconis',
+                         value='Very heavy and armored race! Try to punch! Start params: \n  strength 30 \n  agility 2\n  intelligence 10\n Can learn fire magic with level \n AngelicLevel 1 \n  DemonicLevel 1 \n Karma 2 \n Big HP amount and can learn magic')
         embed4.set_image(url='https://i.imgur.com/zF1KUm5.jpg')
         await ctx.send(embed=embed4)
         embed5 = discord.Embed(
-            color = discord.Colour.dark_purple()
+            color=discord.Colour.dark_purple()
         )
-        embed5.add_field(name='Neko', value="Very fast and agiled race!Start params: \n  strength 4 \n  agility 12\n  intelligence 0\n Can't learn magic \n AngelicLevel 0 \n DemonicLevel 0 \n Karma 0 \n More money from enemy after the fight! Big damage!")
+        embed5.add_field(name='Neko',
+                         value="Very fast and agiled race!Start params: \n  strength 4 \n  agility 12\n  intelligence 0\n Can't learn magic \n AngelicLevel 0 \n DemonicLevel 0 \n Karma 0 \n More money from enemy after the fight! Big damage!")
         embed5.set_image(url='https://i.pinimg.com/564x/6e/07/f2/6e07f238683ce2d8137d8202f06ef98a.jpg')
         await ctx.send(embed=embed5)
         reply = await self.client.wait_for('message', check=check, timeout=120)
@@ -225,7 +233,6 @@ class RPGgame(commands.Cog):
             self.users[member_id]['treasure'] = 0
             await ctx.send('Your character was created!')
 
-
     @commands.command()
     async def testcreate(self, ctx):
         def check(author):
@@ -234,6 +241,7 @@ class RPGgame(commands.Cog):
                     '1', '2', '3', '4', '5')
 
             return inner_check
+
         member = ctx.author
         member_id = str(member.id)
         await ctx.send('commands for testers')
@@ -359,39 +367,47 @@ class RPGgame(commands.Cog):
             return inner_check
 
         embed = discord.Embed(
-            color = discord.Colour.dark_purple()
+            color=discord.Colour.dark_purple()
         )
-        embed.add_field(name='Race choose menu', value='Choose your race! Write in chat for example```1``` and other numbers for choosing a race of your character! \n 1) Human \n 2) Elf \n 3) Succubus 4) Draconis \n 5) Neko')
+        embed.add_field(name='Race choose menu',
+                        value='Choose your race! Write in chat for example```1``` and other numbers for choosing a race of your character! \n 1) Human \n 2) Elf \n 3) Succubus 4) Draconis \n 5) Neko')
         await ctx.send(embed=embed)
 
         embed1 = discord.Embed(
-            color = discord.Colour.dark_purple()
+            color=discord.Colour.dark_purple()
         )
-        embed1.add_field(name='Human', value="Balanced start race. Most balanced race. Start params: \n  strength 15 \n  agility 3\n  intelligence 0\n can't learn magic! \n AngelicLevel 0 \n  DemonicLevel 0 \n Karma 3 \n Have advantage in shop prices and increased loot chance from treasures! ")
+        embed1.add_field(name='Human',
+                         value="Balanced start race. Most balanced race. Start params: \n  strength 15 \n  agility 3\n  intelligence 0\n can't learn magic! \n AngelicLevel 0 \n  DemonicLevel 0 \n Karma 3 \n Have advantage in shop prices and increased loot chance from treasures! ")
         embed1.set_image(url='https://i.ytimg.com/vi/31vXOQjiz-Y/maxresdefault.jpg')
         await ctx.send(embed=embed1)
         embed2 = discord.Embed(
-            color = discord.Colour.dark_purple()
+            color=discord.Colour.dark_purple()
         )
-        embed2.add_field(name='Elf', value="Wise and elder race. Start params: \n  strength 5 \n  agility 5\n  intelligence 20\n Know magic from start! \n AngelicLevel 1 \n  DemonicLevel 0 \n Karma 5 \n Powerful magic spells and angelic level, but low hp!")
-        embed2.set_image(url='https://cdn.discordapp.com/attachments/657178465174552616/657179193595133963/af781f579d19ab28.png')
+        embed2.add_field(name='Elf',
+                         value="Wise and elder race. Start params: \n  strength 5 \n  agility 5\n  intelligence 20\n Know magic from start! \n AngelicLevel 1 \n  DemonicLevel 0 \n Karma 5 \n Powerful magic spells and angelic level, but low hp!")
+        embed2.set_image(
+            url='https://cdn.discordapp.com/attachments/657178465174552616/657179193595133963/af781f579d19ab28.png')
         await ctx.send(embed=embed2)
         embed3 = discord.Embed(
-            color = discord.Colour.dark_purple()
+            color=discord.Colour.dark_purple()
         )
-        embed3.add_field(name='Succubus', value="Demonic powered and forged race. Start params: \n  strength 8 \n  agility 3\n  intelligence 15\n Know magic from start! \n AngelicLevel 0 \n  DemonicLevel 4 \n Karma -30 \n Demonic magic, demonic conversions, demonic level, summons and other!")
-        embed3.set_image(url='https://cdn.discordapp.com/attachments/657178465174552616/657180558828503051/38b34098ee41054c.png')
+        embed3.add_field(name='Succubus',
+                         value="Demonic powered and forged race. Start params: \n  strength 8 \n  agility 3\n  intelligence 15\n Know magic from start! \n AngelicLevel 0 \n  DemonicLevel 4 \n Karma -30 \n Demonic magic, demonic conversions, demonic level, summons and other!")
+        embed3.set_image(
+            url='https://cdn.discordapp.com/attachments/657178465174552616/657180558828503051/38b34098ee41054c.png')
         await ctx.send(embed=embed3)
         embed4 = discord.Embed(
-            color = discord.Colour.dark_purple()
+            color=discord.Colour.dark_purple()
         )
-        embed4.add_field(name='Draconis', value='Very heavy and armored race! Try to punch! Start params: \n  strength 30 \n  agility 2\n  intelligence 10\n Can learn fire magic with level \n AngelicLevel 1 \n  DemonicLevel 1 \n Karma 2 \n Big HP amount and can learn magic')
+        embed4.add_field(name='Draconis',
+                         value='Very heavy and armored race! Try to punch! Start params: \n  strength 30 \n  agility 2\n  intelligence 10\n Can learn fire magic with level \n AngelicLevel 1 \n  DemonicLevel 1 \n Karma 2 \n Big HP amount and can learn magic')
         embed4.set_image(url='https://i.imgur.com/zF1KUm5.jpg')
         await ctx.send(embed=embed4)
         embed5 = discord.Embed(
-            color = discord.Colour.dark_purple()
+            color=discord.Colour.dark_purple()
         )
-        embed5.add_field(name='Neko', value="Very fast and agiled race!Start params: \n  strength 4 \n  agility 12\n  intelligence 0\n Can't learn magic \n AngelicLevel 0 \n DemonicLevel 0 \n Karma 0 \n More money from enemy after the fight! Big damage!")
+        embed5.add_field(name='Neko',
+                         value="Very fast and agiled race!Start params: \n  strength 4 \n  agility 12\n  intelligence 0\n Can't learn magic \n AngelicLevel 0 \n DemonicLevel 0 \n Karma 0 \n More money from enemy after the fight! Big damage!")
         embed5.set_image(url='https://i.pinimg.com/564x/6e/07/f2/6e07f238683ce2d8137d8202f06ef98a.jpg')
         await ctx.send(embed=embed5)
         reply = await self.client.wait_for('message', check=check, timeout=120)
@@ -545,26 +561,29 @@ class RPGgame(commands.Cog):
             def inner_check(message):
                 return message.author == author and message.content in (
                     '1', '2')
+
             return inner_check
+
         member = ctx.author
         member_id = str(member.id)
         magic_damage = 1 * self.users[member_id]['intelligence']
         physical_damage = random.randint(self.users[member_id]['agility'],
-                                self.users[member_id]['agility'] + 40)
+                                         self.users[member_id]['agility'] + 40)
         embedstart = discord.Embed(
             color=discord.Colour.dark_purple()
         )
         embedstart.add_field(name='Your eyes open!', value="Your eyes is opened and you are waking up in cave? You "
-                                                          "don't...Smell is awful, near to you is dead body of the "
-                                                          "common girl. She not even in armor or something like that. "
-                                                          "Looks like she is a innocent resident of village or town. "
+                                                           "don't...Smell is awful, near to you is dead body of the "
+                                                           "common girl. She not even in armor or something like that. "
+                                                           "Looks like she is a innocent resident of village or town. "
                                                            "You checked body and found a strange scroll with symbols "
                                                            "which you can't read because language is strange and "
                                                            "obscure. Near to her hand was unused torch, so now you use it and go forward in mysteries of dungeon! ")
         embedstart.set_image(url='https://sun9-65.userapi.com/c858436/v858436328/11cb94/HZvsLi4ul2c.jpg')
         await ctx.send(embed=embedstart)
         clearmind = 'шо нада? Я ОЛД'
-        if self.users[member_id]['karma'] == 3 or self.users[member_id]['karma'] == 2 or self.users[member_id]['karma'] == 0:
+        if self.users[member_id]['karma'] == 3 or self.users[member_id]['karma'] == 2 or self.users[member_id][
+            'karma'] == 0:
             clearmind = 'Your mind now is so clear!You remembered skills of how to fight in close combat!You taking up your sword and ready for battle!'
         if self.users[member_id]['karma'] == 5 or self.users[member_id]['karma'] == -30:
             clearmind = 'Your mind now is so clear!You remembered skills of how to use magic skills!Now your soul is ready!'
@@ -575,8 +594,10 @@ class RPGgame(commands.Cog):
         await ctx.send(embed=embedmind)
         embedfight1 = discord.Embed(
             color=discord.Colour.dark_purple())
-        embedfight1.add_field(name='Fight!', value="You going deep in cave and see a dead body and goblin! He looks very aggresive!")
-        embedfight1.set_image(url='https://cdn.discordapp.com/attachments/657178465174552616/657194216002289677/-LKpTPfq6Cc.png')
+        embedfight1.add_field(name='Fight!',
+                              value="You going deep in cave and see a dead body and goblin! He looks very aggresive!")
+        embedfight1.set_image(
+            url='https://cdn.discordapp.com/attachments/657178465174552616/657194216002289677/-LKpTPfq6Cc.png')
         await ctx.send(embed=embedfight1)
         goblinhp = 6
         while goblinhp > 0:
@@ -643,13 +664,15 @@ class RPGgame(commands.Cog):
             embedAttention = discord.Embed(
                 color=discord.Colour.dark_purple()
             )
-            embedAttention.add_field(name='Event', value='A two sneaky goblins noticed your battle with other already dead goblin!They ran out and seems will call for help! Prepare for a good fight')
+            embedAttention.add_field(name='Event',
+                                     value='A two sneaky goblins noticed your battle with other already dead goblin!They ran out and seems will call for help! Prepare for a good fight')
             embedAttention.set_image(url='https://sun9-56.userapi.com/c200424/v200424002/16891/QGmePf0OvJ0.jpg')
             await ctx.send(embed=embedAttention)
             embedprefight2 = discord.Embed(
-                color = discord.Colour.dark_purple()
+                color=discord.Colour.dark_purple()
             )
-            embedprefight2.add_field(name='Fight', value="You see a medium sized group of goblins and they are really ready to fight with you. Some of them have even an armor. Are you ready? You can't give up.")
+            embedprefight2.add_field(name='Fight',
+                                     value="You see a medium sized group of goblins and they are really ready to fight with you. Some of them have even an armor. Are you ready? You can't give up.")
             embedprefight2.set_image(url='https://media.kg-portal.ru/anime/g/goblinslayer/images/goblinslayer_5.jpg')
             await ctx.send(embed=embedprefight2)
             goblinhp = 26
@@ -798,8 +821,10 @@ class RPGgame(commands.Cog):
                 embedprefight4 = discord.Embed(
                     color=discord.Colour.dark_purple()
                 )
-                embedprefight4.add_field(name='Fight', value='A really big goblin is pushed out all the little goblins and made his way to you. YOU HAVE NO WAY TO RUN. Just face your fate.')
-                embedprefight4.set_image(url='http://www.animefanshub.com/wp-content/uploads/2018/11/Goblin-Champion-1024x583.jpeg')
+                embedprefight4.add_field(name='Fight',
+                                         value='A really big goblin is pushed out all the little goblins and made his way to you. YOU HAVE NO WAY TO RUN. Just face your fate.')
+                embedprefight4.set_image(
+                    url='http://www.animefanshub.com/wp-content/uploads/2018/11/Goblin-Champion-1024x583.jpeg')
                 await ctx.send(embed=embedprefight4)
                 goblinhp = 1000
                 while goblinhp > 0:
@@ -889,7 +914,8 @@ class RPGgame(commands.Cog):
                         color=discord.Colour.dark_purple()
                     )
                     embedpredragon.add_field(name='Fight', value='Bone dragon is materialising. Someone summoned it')
-                    embedpredragon.set_image(url='http://vignette2.wikia.nocookie.net/overlordmaruyama/images/1/14/Overlord_EP09_021.png/revision/latest?cb=20150902102606')
+                    embedpredragon.set_image(
+                        url='http://vignette2.wikia.nocookie.net/overlordmaruyama/images/1/14/Overlord_EP09_021.png/revision/latest?cb=20150902102606')
                     await ctx.send(embed=embedpredragon)
                     dragonhp = 10000
                     while dragonhp > 0:
@@ -970,10 +996,14 @@ class RPGgame(commands.Cog):
                     embedlast_fight = discord.Embed(
                         color=discord.Colour.dark_purple()
                     )
-                    embedlast_fight.add_field(name='Last Fight', value=f'A mysterious evil person appeared.\n - Oh. You are still alive. Okay, i will help you to die :smiling_imp: .', inline=False)
+                    embedlast_fight.add_field(name='Last Fight',
+                                              value=f'A mysterious evil person appeared.\n - Oh. You are still alive. Okay, i will help you to die :smiling_imp: .',
+                                              inline=False)
                     embedlast_fight.add_field(name='pray',
-                                              value=f"**you pray** \n - HAHAHAHHAH :rofl:  stop praying. It can't help you against me. **your prays are hopeless now** \n Your current health: 150000, Your current damage: 17500", inline=False)
-                    embedlast_fight.set_image(url='https://i.pinimg.com/originals/d2/e6/01/d2e601d66a27990469b38e32e023cb3e.jpg')
+                                              value=f"**you pray** \n - HAHAHAHHAH :rofl:  stop praying. It can't help you against me. **your prays are hopeless now** \n Your current health: 150000, Your current damage: 17500",
+                                              inline=False)
+                    embedlast_fight.set_image(
+                        url='https://i.pinimg.com/originals/d2/e6/01/d2e601d66a27990469b38e32e023cb3e.jpg')
                     await ctx.send(embed=embedlast_fight)
                     evil_hp = 100000
                     self.users[member_id]['health'] = 150000
@@ -1051,7 +1081,8 @@ class RPGgame(commands.Cog):
                                 await ctx.send(
                                     f"[???] gave you {mob_damage} Now your hp is {self.users[member_id]['health']}")
                     if evil_hp <= 0:
-                        await ctx.send(' PATHETIIIIIIIIIC!! Pathetic... Pathetic! You are so pathetic! \nHAHAHAHAHAHAHHAHAHAHAHAHHAHAHAHAHAHAHHAHAHAHAHAHAHAHAHAHAHAHHAHAHAHAHAHAHHAHAHAHAHAHAHAHAHAHAHAHAH **transformation** **mutation**')
+                        await ctx.send(
+                            ' PATHETIIIIIIIIIC!! Pathetic... Pathetic! You are so pathetic! \nHAHAHAHAHAHAHHAHAHAHAHAHHAHAHAHAHAHAHHAHAHAHAHAHAHAHAHAHAHAHHAHAHAHAHAHAHHAHAHAHAHAHAHAHAHAHAHAHAH **transformation** **mutation**')
                         evil_hp = 1000000
                         while evil_hp > 0:
                             if self.users[member_id]['health'] <= 0:
@@ -1107,7 +1138,8 @@ class RPGgame(commands.Cog):
                             embedCLONEXY = discord.Embed(
                                 color=discord.Colour.dark_purple()
                             )
-                            embedCLONEXY.add_field(name='Not bad LMAO', value='Clonexy700#3767[Developer]: "LMAO not bad :D well some meme for you XD You thought about good reward or something like that? No no no XD  Just take look on this dancing Ricardo"')
+                            embedCLONEXY.add_field(name='Not bad LMAO',
+                                                   value='Clonexy700#3767[Developer]: "LMAO not bad :D well some meme for you XD You thought about good reward or something like that? No no no XD  Just take look on this dancing Ricardo"')
                             embedCLONEXY.set_image(url='https://media3.giphy.com/media/UtcBRO8cxulRzkrVLc/giphy.gif')
                             self.users[member_id]['level'] = 12
                             self.users[member_id]['storyfantasy'] = 1
@@ -1119,6 +1151,7 @@ class RPGgame(commands.Cog):
     async def rpgshop(self, ctx):
         member = ctx.author
         member_id = str(member.id)
+
         def check(author):
             def inner_check(message):
                 return message.author == author and message.content in (
@@ -1151,11 +1184,13 @@ class RPGgame(commands.Cog):
                 embed_shop.add_field(name='4', value='Naginata 薙刀 [1500 Gold] - Provides 27 additional attack | weapon')
                 embed_shop.add_field(name='5', value='Cat scarf [300 Gold] - 1 armor 2 agility | trinket')
                 embed_shop.add_field(name='6', value='Elven Leather Armor [2000 Gold] - 6 armor 3 agility | armor')
-                embed_shop.add_field(name='7', value='Demonic Katana 鬼の歯[12000 Gold] - Provides 101 additional attack + 10 agility - 10 strength | weapon')
+                embed_shop.add_field(name='7',
+                                     value='Demonic Katana 鬼の歯[12000 Gold] - Provides 101 additional attack + 10 agility - 10 strength | weapon')
                 embed_shop.add_field(name='8', value='Agility band [1500 Gold] - 7 agility | trinket')
                 embed_shop.add_field(name='9', value='Samurai armor[20000 Gold] - 30 armor | armor')
             if self.users[member_id]['type'] == 'magic':
-                embed_shop.add_field(name='4', value='Inteligence book - [2500 Gold] Read it and gain + 10 intelligence| magic book')
+                embed_shop.add_field(name='4',
+                                     value='Inteligence book - [2500 Gold] Read it and gain + 10 intelligence| magic book')
                 embed_shop.add_field(name='5',
                                      value='Witch hat - [1000 Gold] 3 intelligence 1 armor | trinket')
                 embed_shop.add_field(name='6',
@@ -1168,12 +1203,14 @@ class RPGgame(commands.Cog):
                                      value='Grand Wizard robe - [8000 Gold] 14 intelligence 10 armor| armor')
             if self.users[member_id]['type'] == 'common':
                 embed_shop.add_field(name='4', value='Wide sword [500 Gold] - Provides 10 additional attack | weapon')
-                embed_shop.add_field(name='5', value='Amulet of defence [600 Gold] - 6 armor 3 strength 3 agility | trinket')
+                embed_shop.add_field(name='5',
+                                     value='Amulet of defence [600 Gold] - 6 armor 3 strength 3 agility | trinket')
                 embed_shop.add_field(name='6', value='Chain-mail [1200 Gold] - 25 armor | armor')
                 embed_shop.add_field(name='7',
                                      value='Paladin sword [7000 Gold] - Provides 52 additional attack | weapon')
                 embed_shop.add_field(name='8', value='Essence of attack [1500 Gold] - 8 agility | trinket')
-                embed_shop.add_field(name='9', value='Paladin armor[8000 Gold] - 40 armor 10 strength 3 agility | armor')
+                embed_shop.add_field(name='9',
+                                     value='Paladin armor[8000 Gold] - 40 armor 10 strength 3 agility | armor')
             if self.users[member_id]['type'] == 'heavy':
                 embed_shop.add_field(name='4', value='Chopper [1500 Gold] - Provides 25 additional attack | weapon')
                 embed_shop.add_field(name='5',
@@ -1181,7 +1218,8 @@ class RPGgame(commands.Cog):
                 embed_shop.add_field(name='6', value='Heavy armor [3200 Gold] - 40 armor | armor')
                 embed_shop.add_field(name='7',
                                      value='True dragon sword [9500 Gold] - Provides 60 additional attack | weapon')
-                embed_shop.add_field(name='8', value='Soul awakening [11500 Gold] - + 30 ATTACK + 30 ARMOR + 30 STRENGTH + 30 AGILITY  | trinket')
+                embed_shop.add_field(name='8',
+                                     value='Soul awakening [11500 Gold] - + 30 ATTACK + 30 ARMOR + 30 STRENGTH + 30 AGILITY  | trinket')
                 embed_shop.add_field(name='9',
                                      value='Dragon armor[20000 Gold] - 80 armor 20 strength 6 agility | armor')
             await ctx.send(embed=embed_shop)
@@ -1276,7 +1314,6 @@ class RPGgame(commands.Cog):
                         self.users[member_id]['armorstat'] += 1
                         self.users[member_id]['agility'] += 2
 
-
                 if self.users[member_id]['type'] == 'heavy':
                     price = 1600
                     self.users[member_id]['gold'] -= price
@@ -1287,7 +1324,6 @@ class RPGgame(commands.Cog):
                         await ctx.send('equiped!')
                         self.users[member_id]['strength'] += 12
                         self.users[member_id]['agility'] += 3
-
 
                 if self.users[member_id]['type'] == 'common':
                     price = 600
@@ -1406,7 +1442,6 @@ class RPGgame(commands.Cog):
                         await ctx.send('equiped!')
                         self.users[member_id]['agility'] += 7
 
-
                 if self.users[member_id]['type'] == 'heavy':
                     price = 11500
                     self.users[member_id]['gold'] -= price
@@ -1419,7 +1454,6 @@ class RPGgame(commands.Cog):
                         self.users[member_id]['agility'] += 30
                         self.users[member_id]['weaponstat'] += 30
                         self.users[member_id]['armorstat'] += 30
-
 
                 if self.users[member_id]['type'] == 'common':
                     price = 1500
@@ -1488,8 +1522,10 @@ class RPGgame(commands.Cog):
         embed_treasurment = discord.Embed(
             color=discord.Colour.dark_purple()
         )
-        embed_treasurment.add_field(name='Treasure menu', value=f"Welcome to treasure menu! Right now you have {self.users[member_id]['treasure']} treasure box. Wanna open it? Print ``$treasureopen`` Wanna see more info about treasures and loot in them? Print ``$treasureinfo``")
-        embed_treasurment.set_image(url='https://vignette.wikia.nocookie.net/overlordmaruyama/images/d/d2/Overlord_EP11_044.png/revision/latest?cb=20150916115130')
+        embed_treasurment.add_field(name='Treasure menu',
+                                    value=f"Welcome to treasure menu! Right now you have {self.users[member_id]['treasure']} treasure box. Wanna open it? Print ``$treasureopen`` Wanna see more info about treasures and loot in them? Print ``$treasureinfo``")
+        embed_treasurment.set_image(
+            url='https://vignette.wikia.nocookie.net/overlordmaruyama/images/d/d2/Overlord_EP11_044.png/revision/latest?cb=20150916115130')
         await ctx.send(embed=embed_treasurment)
 
     @commands.command()
@@ -1497,20 +1533,22 @@ class RPGgame(commands.Cog):
         embed_info_t = discord.Embed(
             color=discord.Colour.dark_purple()
         )
-        embed_info_t.add_field(name='Information', value='LOOT: \n Demonic armor 0.03% \n Demonic Weapon 0.075% \n Demonic trinket 0.085% \n Titan forged armor 0.1% \n Titan forged weapon 0.2% \n Titan forged trinket 0.3% \n +85 treasures 0.5% \n +48 treasures 0.8%')
+        embed_info_t.add_field(name='Information',
+                               value='LOOT: \n Demonic armor 0.03% \n Demonic Weapon 0.075% \n Demonic trinket 0.085% \n Titan forged armor 0.1% \n Titan forged weapon 0.2% \n Titan forged trinket 0.3% \n +85 treasures 0.5% \n +48 treasures 0.8%')
         await ctx.send(embed=embed_info_t)
 
     @commands.command()
-    async def treasureopen(self, ctx, box_number: int =None):
+    async def treasureopen(self, ctx, box_number: int = None):
         member = ctx.author
         member_id = str(member.id)
         box_number = 1 if not box_number else box_number
         embed_treasure = discord.Embed(
             color=discord.Colour.dark_purple()
         )
-        embed_treasure.add_field(name='Treasure', value=f"Trying to open {box_number} treasure. Right now you have {self.users[member_id]['treasure']} treasure boxes.")
+        embed_treasure.add_field(name='Treasure',
+                                 value=f"Trying to open {box_number} treasure. Right now you have {self.users[member_id]['treasure']} treasure boxes.")
         self.users[member_id]['treasure'] -= box_number
-        if self.users[member_id]['treasure'] < 0 :
+        if self.users[member_id]['treasure'] < 0:
             await ctx.send('Not enough boxes to open!')
             self.users[member_id]['treasure'] += box_number
         else:
@@ -1623,12 +1661,14 @@ class RPGgame(commands.Cog):
     async def rpgheal(self, ctx):
         member = ctx.author
         member_id = str(member.id)
+
         def check(author):
             def inner_check(message):
                 return message.author == author and message.content in (
                     '1', '2')
 
             return inner_check
+
         embed_nurse = discord.Embed(
             color=discord.Colour.dark_purple()
         )
@@ -1684,7 +1724,9 @@ class RPGgame(commands.Cog):
             color=discord.Colour.dark_purple()
         )
         embed_info.set_author(name=f'RPG - {member}', icon_url=member.avatar_url)
-        embed_info.add_field(name='Character info', value=f" Your level - {self.users[member_id]['level']}\n Strength - {self.users[member_id]['strength']}:shield: \n Agility - {self.users[member_id]['agility']}:crossed_swords: \n Intelligence - {self.users[member_id]['intelligence']}:mage: \n Current health - {self.users[member_id]['health']} :heart: \n Your Karma - {self.users[member_id]['karma']}:sparkles: \n Your money - {self.users[member_id]['gold']}:moneybag: gold  ", inline=True)
+        embed_info.add_field(name='Character info',
+                             value=f" Your level - {self.users[member_id]['level']}\n Strength - {self.users[member_id]['strength']}:shield: \n Agility - {self.users[member_id]['agility']}:crossed_swords: \n Intelligence - {self.users[member_id]['intelligence']}:mage: \n Current health - {self.users[member_id]['health']} :heart: \n Your Karma - {self.users[member_id]['karma']}:sparkles: \n Your money - {self.users[member_id]['gold']}:moneybag: gold  ",
+                             inline=True)
         if self.users[member_id]['weapon'] == '✓':
             embed_info.add_field(name='Weapon', value=f"Weapon stat - {self.users[member_id]['weaponstat']}")
         if self.users[member_id]['armor'] == '✓':
@@ -1704,6 +1746,7 @@ class RPGgame(commands.Cog):
             def inner_check(message):
                 return message.author == author and message.content in (
                     '1')
+
             return inner_check
 
         member = ctx.author
@@ -1713,7 +1756,8 @@ class RPGgame(commands.Cog):
             Magic_Succubus = discord.Embed(
                 color=discord.Colour.dark_purple()
             )
-            Magic_Succubus.add_field(name='Magic learning menu!', value='1) LVL 12 - [Demonic change]:<Choose the magic effect in fight! \n ```1) Damage yourself on 2 damage and deal 2*your intellegince damage \n2) Damage your enemy on round of 0.3 of your intelligence and heal yourself on amount of damage```> ``` if you have enough lvl to learn skill write in chat 1```')
+            Magic_Succubus.add_field(name='Magic learning menu!',
+                                     value='1) LVL 12 - [Demonic change]:<Choose the magic effect in fight! \n ```1) Damage yourself on 2 damage and deal 2*your intellegince damage \n2) Damage your enemy on round of 0.3 of your intelligence and heal yourself on amount of damage```> ``` if you have enough lvl to learn skill write in chat 1```')
             Magic_Succubus.set_image(url='http://cache.desktopnexus.com/thumbseg/295/295520-bigthumbnail.jpg')
             await ctx.send(embed=Magic_Succubus)
             reply = await self.client.wait_for('message', check=check, timeout=180)
@@ -1728,8 +1772,10 @@ class RPGgame(commands.Cog):
             Magic_Elfius = discord.Embed(
                 color=discord.Colour.green()
             )
-            Magic_Elfius.add_field(name='Magic learning menu', value='1) LVL 12 - [Mind Blow]:<Desintegration of enemy mind. round of + 0.5 damage for every your intelligence. How it works? If you have 9 intelligence your damage will be 0.5+1+1.5+2+2.5+3+3.5+4+4.5=22.5=23> ``` if you have enough lvl to learn skill write in chat 1```')
-            Magic_Elfius.set_image(url='https://www.wallpapermaiden.com/image/2019/03/12/fire-emblem-heroes-elf-ears-hoodie-coat-magic-heterochromia-anime-games-31123.png')
+            Magic_Elfius.add_field(name='Magic learning menu',
+                                   value='1) LVL 12 - [Mind Blow]:<Desintegration of enemy mind. round of + 0.5 damage for every your intelligence. How it works? If you have 9 intelligence your damage will be 0.5+1+1.5+2+2.5+3+3.5+4+4.5=22.5=23> ``` if you have enough lvl to learn skill write in chat 1```')
+            Magic_Elfius.set_image(
+                url='https://www.wallpapermaiden.com/image/2019/03/12/fire-emblem-heroes-elf-ears-hoodie-coat-magic-heterochromia-anime-games-31123.png')
             await ctx.send(embed=Magic_Elfius)
             reply = await self.client.wait_for('message', check=check, timeout=180)
             if reply.content == '1':
@@ -1743,8 +1789,10 @@ class RPGgame(commands.Cog):
             Magic_Draconis = discord.Embed(
                 color=discord.Colour.red()
             )
-            Magic_Draconis.add_field(name='Magic learning menu', value='1) LVL 12 - [Fire breath]:<Breath on your enemy with your draconic nature and deal 0.5*your strength damage!>')
-            Magic_Draconis.set_image(url='https://image.myanimelist.net/ui/t7qrb70KKlmskIhjtymKK11gNPDipVGeEOy6EW31bCXtnNW3IrQilcYF2mNRxSSsN84_72hJTsQ8-NGYxQV3TYm1ib7FSGoFQ-vpzs4-TcK0nUkiCnxb7nS23iB3MwYi')
+            Magic_Draconis.add_field(name='Magic learning menu',
+                                     value='1) LVL 12 - [Fire breath]:<Breath on your enemy with your draconic nature and deal 0.5*your strength damage!>')
+            Magic_Draconis.set_image(
+                url='https://image.myanimelist.net/ui/t7qrb70KKlmskIhjtymKK11gNPDipVGeEOy6EW31bCXtnNW3IrQilcYF2mNRxSSsN84_72hJTsQ8-NGYxQV3TYm1ib7FSGoFQ-vpzs4-TcK0nUkiCnxb7nS23iB3MwYi')
             await ctx.send(embed=Magic_Draconis)
             reply = await self.client.wait_for('message', check=check, timeout=180)
             if reply.content == '1':
@@ -1757,14 +1805,13 @@ class RPGgame(commands.Cog):
         if self.users[member_id]['karma'] == 0 or self.users[member_id]['karma'] == 3:
             await ctx.send('No magic for your race. Sorry!')
 
-
-
     @commands.command()
     async def rpgplay(self, ctx):
         elf_n = 0.5
         old_int = 0
         magic_damage = 0
         physical_damage = 0
+
         def check(author):
             def inner_check(message):
                 return message.author == author and message.content in (
@@ -1785,6 +1832,7 @@ class RPGgame(commands.Cog):
                     '1', '2')
 
             return inner_check
+
         member = ctx.author
         member_id = str(member.id)
         if self.users[member_id]['storyfantasy'] == 1:
@@ -1837,7 +1885,8 @@ class RPGgame(commands.Cog):
             )
             e3.add_field(name='Event',
                          value='You was peacefully walking your way but suddenly wagon driver asked you to stop and help him. \n 1) Help [Quest] \n 2) Reject \n 3) Save and quit')
-            e3.set_image(url='https://image.myanimelist.net/ui/fkHpHKa8ZRvgXF3EvLfxXJwxEUD0Uw9ky_kPrNcD6QQzbbKiV4tAUqDc5IPl7QwEnkSqGtb7qVwFxDTT41o8Tk5vPSf4AvcAVxSAfTVWhz4o37j79Yzb0JdDormoj86f9OVwKE2YMCz6JB_GXdrZNGrjPZeWgvVXypeL13ZQ-I1dGvtJYTRuogEKJUHLCg26')
+            e3.set_image(
+                url='https://image.myanimelist.net/ui/fkHpHKa8ZRvgXF3EvLfxXJwxEUD0Uw9ky_kPrNcD6QQzbbKiV4tAUqDc5IPl7QwEnkSqGtb7qVwFxDTT41o8Tk5vPSf4AvcAVxSAfTVWhz4o37j79Yzb0JdDormoj86f9OVwKE2YMCz6JB_GXdrZNGrjPZeWgvVXypeL13ZQ-I1dGvtJYTRuogEKJUHLCg26')
             await ctx.send(embed=e3)
             reply = await self.client.wait_for('message', check=check3, timeout=180)
             if reply.content == '2':
@@ -1849,15 +1898,18 @@ class RPGgame(commands.Cog):
                 e_quest_3_1 = discord.Embed(
                     color=discord.Colour.dark_purple()
                 )
-                e_quest_3_1.add_field(name='Quest', value="- I'm need help in protecting my wagon from bandits! I will reward you. So, lets go.")
-                e_quest_3_1.set_image(url='https://www.anime-planet.com/images/characters/wagon-driver-121621.jpg?t=1488737841')
+                e_quest_3_1.add_field(name='Quest',
+                                      value="- I'm need help in protecting my wagon from bandits! I will reward you. So, lets go.")
+                e_quest_3_1.set_image(
+                    url='https://www.anime-planet.com/images/characters/wagon-driver-121621.jpg?t=1488737841')
                 await ctx.send(embed=e_quest_3_1)
 
                 e_quest_3_1_battle = discord.Embed(
                     color=discord.Colour.dark_purple()
                 )
-                e_quest_3_1_battle.add_field(name='Battle', value='Bandits attacking wagon! Defend it!\n 1) Fight \n 2) Save and quit\n [GAME SYSTEM MESSAGE] \n <Race players who can learn magic (Elfs, Succubus and Draconis) please save and quit and learn magic with $rpgmagic for correct fight! Or you will just die in fight!> ```$rpgmagic```')
-                await ctx.send (embed=e_quest_3_1_battle)
+                e_quest_3_1_battle.add_field(name='Battle',
+                                             value='Bandits attacking wagon! Defend it!\n 1) Fight \n 2) Save and quit\n [GAME SYSTEM MESSAGE] \n <Race players who can learn magic (Elfs, Succubus and Draconis) please save and quit and learn magic with $rpgmagic for correct fight! Or you will just die in fight!> ```$rpgmagic```')
+                await ctx.send(embed=e_quest_3_1_battle)
                 reply = await self.client.wait_for('message', check=check, timeout=180)
                 if reply.content == '2':
                     await ctx.send('Game process saved!')
@@ -1896,7 +1948,8 @@ class RPGgame(commands.Cog):
                                 reply_succ = await self.client.wait_for('message', check=checkfight, timeout=180)
                                 if reply_succ.content == '1':
                                     await ctx.send('choose effect of skill!')
-                                    await ctx.send('1) 2 dmg yourself, 2 * your int = dmg \n 2) 0.3 * your int = dmg = heal yourself')
+                                    await ctx.send(
+                                        '1) 2 dmg yourself, 2 * your int = dmg \n 2) 0.3 * your int = dmg = heal yourself')
                                     reply_succ1 = await self.client.wait_for('message', check=checkfight, timeout=180)
                                     if reply_succ1.content == '1':
                                         self.users[member_id]['health'] -= 2
@@ -1914,13 +1967,14 @@ class RPGgame(commands.Cog):
                                     color=discord.Colour.dark_purple()
                                 )
                                 if self.users[member_id]['Elf_Skill_1'] == 'Learned':
-                                    e_f_m_f.add_field(name='1) Mind Blow', value=' Damage from 1st intelligence point to last point with +0.5 multiplier')
+                                    e_f_m_f.add_field(name='1) Mind Blow',
+                                                      value=' Damage from 1st intelligence point to last point with +0.5 multiplier')
                                 await ctx.send(embed=e_f_m_f)
                                 await ctx.send('choose skill!')
                                 reply_elf = await self.client.wait_for('message', check=checkfight, timeout=180)
                                 if reply_elf.content == '1':
                                     a = self.users[member_id]['intelligence']
-                                    for i in range(1, a+1):
+                                    for i in range(1, a + 1):
                                         magic_damage += elf_n
                                         elf_n += 0.5
                                     magic_damage = round(magic_damage)
@@ -1944,17 +1998,18 @@ class RPGgame(commands.Cog):
                                                           value='0.5 * your strength magic damage')
                                         await ctx.send(embed=e_f_m_d)
                                         await ctx.send('choose skill!')
-                                        reply_dragon = await self.client.wait_for('message', check=checkfight, timeout=180)
+                                        reply_dragon = await self.client.wait_for('message', check=checkfight,
+                                                                                  timeout=180)
                                         if reply_dragon.content == '1':
                                             magic_damage = round(0.5 * self.users[member_id]['strength'])
                                             bandithp -= magic_damage
                                             await ctx.send(
-                                            f'You did {magic_damage} damage to bandit!Good punch. Now his HP is {bandithp}')
-
-
+                                                f'You did {magic_damage} damage to bandit!Good punch. Now his HP is {bandithp}')
 
                             if self.users[member_id]['intelligence'] == 0:
-                                physical_damage = random.randint(self.users[member_id]['agility'] -2, self.users[member_id]['agility'] +3) + self.users[member_id]['weaponstat']
+                                physical_damage = random.randint(self.users[member_id]['agility'] - 2,
+                                                                 self.users[member_id]['agility'] + 3) + \
+                                                  self.users[member_id]['weaponstat']
                                 bandithp -= physical_damage
                                 await ctx.send(
                                     f'You did {physical_damage} damage to bandit!Good punch. Now his HP is {bandithp}')
@@ -2105,7 +2160,8 @@ class RPGgame(commands.Cog):
 
                                 if self.users[member_id]['intelligence'] == 0:
                                     physical_damage = random.randint(self.users[member_id]['agility'] - 2,
-                                                                     self.users[member_id]['agility'] + 3) + self.users[member_id]['weaponstat']
+                                                                     self.users[member_id]['agility'] + 3) + \
+                                                      self.users[member_id]['weaponstat']
                                     bandit2hp -= physical_damage
                                     await ctx.send(
                                         f'You did {physical_damage} damage to bandit!Good punch. Now his HP is {bandit2hp}')
@@ -2173,8 +2229,10 @@ class RPGgame(commands.Cog):
             embed_duelanto = discord.Embed(
                 color=discord.Colour.dark_purple()
             )
-            embed_duelanto.add_field(name='Duelist', value="Let's bet your life and fight. Win or die. If you win i giving you 250 gold. \n 1) Fight 2) Go away 3) Save and quit")
-            embed_duelanto.set_image(url='https://www.bestfunforall.com/wallpaperbetter/imgs/Anime%20girl%20katana%20butterfly%20temple%20wallpaper%20%2018.jpg')
+            embed_duelanto.add_field(name='Duelist',
+                                     value="Let's bet your life and fight. Win or die. If you win i giving you 250 gold. \n 1) Fight 2) Go away 3) Save and quit")
+            embed_duelanto.set_image(
+                url='https://www.bestfunforall.com/wallpaperbetter/imgs/Anime%20girl%20katana%20butterfly%20temple%20wallpaper%20%2018.jpg')
             await ctx.send(embed=embed_duelanto)
             reply = await self.client.wait_for('message', check=check3, timeout=180)
             if reply.content == '1':
@@ -2271,7 +2329,8 @@ class RPGgame(commands.Cog):
 
                         if self.users[member_id]['intelligence'] == 0:
                             physical_damage = random.randint(self.users[member_id]['agility'] - 2,
-                                                             self.users[member_id]['agility'] + 3) + self.users[member_id]['weaponstat']
+                                                             self.users[member_id]['agility'] + 3) + \
+                                              self.users[member_id]['weaponstat']
                             bandithp -= physical_damage
                             await ctx.send(
                                 f'You did {physical_damage} damage to Duelist!Good punch. Now his HP is {bandithp}')
@@ -2330,8 +2389,10 @@ class RPGgame(commands.Cog):
             pre_event = discord.Embed(
                 color=discord.Colour.dark_purple()
             )
-            pre_event.add_field(name='Nothing interesting', value='You just continue to go, nothing interesting \n 1) Go 2) Save and quit')
-            pre_event.set_image(url='https://c4.wallpaperflare.com/wallpaper/67/775/785/artwork-road-drawing-anime-wallpaper-preview.jpg')
+            pre_event.add_field(name='Nothing interesting',
+                                value='You just continue to go, nothing interesting \n 1) Go 2) Save and quit')
+            pre_event.set_image(
+                url='https://c4.wallpaperflare.com/wallpaper/67/775/785/artwork-road-drawing-anime-wallpaper-preview.jpg')
             await ctx.send(embed=pre_event)
             reply = await self.client.wait_for('message', check=checkfight, timeout=180)
             if reply.content == '1':
@@ -2349,7 +2410,8 @@ class RPGgame(commands.Cog):
                 color=discord.Colour.dark_purple()
             )
             event_blood_moon1.add_field(name='Event', value='Sky color now is red')
-            event_blood_moon1.set_image(url='https://66.media.tumblr.com/bd91060d4af2b1de882835f0b2552a4a/tumblr_pvwkal4foE1sqn0mto1_500.gifv')
+            event_blood_moon1.set_image(
+                url='https://66.media.tumblr.com/bd91060d4af2b1de882835f0b2552a4a/tumblr_pvwkal4foE1sqn0mto1_500.gifv')
             await ctx.send(embed=event_blood_moon1)
             event_blood_moon2 = discord.Embed(
                 color=discord.Colour.dark_purple()
@@ -2368,7 +2430,8 @@ class RPGgame(commands.Cog):
             event_blood_moon4 = discord.Embed(
                 color=discord.Colour.dark_purple()
             )
-            event_blood_moon4.add_field(name='Town', value='Almost all town in fire and now you see some monsters. Prepare for battle! \n 1) Battle 2) Save and quit')
+            event_blood_moon4.add_field(name='Town',
+                                        value='Almost all town in fire and now you see some monsters. Prepare for battle! \n 1) Battle 2) Save and quit')
             event_blood_moon4.set_image(
                 url='https://celestialkitsune.files.wordpress.com/2010/03/howl-moving-castle_00056.jpg?w=640')
             await ctx.send(embed=event_blood_moon4)
@@ -2969,8 +3032,10 @@ class RPGgame(commands.Cog):
             bunny = discord.Embed(
                 color=discord.Colour.dark_purple()
             )
-            bunny.add_field(name='Fight', value='Very big and muscular bunny ready to attack you! Behind of him his horde. \n 1) Fight 2) Save and quit')
-            bunny.set_image(url='https://vignette.wikia.nocookie.net/blood-c/images/f/f1/Wmplayer_2012-06-17_14-17-26-16.jpg/revision/latest/top-crop/width/300/height/300?cb=20120617172417&path-prefix=es')
+            bunny.add_field(name='Fight',
+                            value='Very big and muscular bunny ready to attack you! Behind of him his horde. \n 1) Fight 2) Save and quit')
+            bunny.set_image(
+                url='https://vignette.wikia.nocookie.net/blood-c/images/f/f1/Wmplayer_2012-06-17_14-17-26-16.jpg/revision/latest/top-crop/width/300/height/300?cb=20120617172417&path-prefix=es')
             await ctx.send(embed=bunny)
             reply3 = await self.client.wait_for('message', check=check, timeout=180)
             if reply3.content == '2':
@@ -3132,8 +3197,10 @@ class RPGgame(commands.Cog):
             fire_in_town = discord.Embed(
                 color=discord.Colour.dark_purple()
             )
-            fire_in_town.add_field(name='Important choice', value='The city is engulfed in flames and soon nothing will remain of it. The sad beginning of the story for a man who just lay in bed and slept, and he was forced to go here. What to do now? After a little reflection there are several options, which one will you choose?\n 1) Go to palace of King 2)Go to the second largest town 3) Just go back to home')
-            fire_in_town.set_image(url='https://steamuserimages-a.akamaihd.net/ugc/101724518970937891/AF85D181E33984FFEABDCE574F6EC281E49D3F33/')
+            fire_in_town.add_field(name='Important choice',
+                                   value='The city is engulfed in flames and soon nothing will remain of it. The sad beginning of the story for a man who just lay in bed and slept, and he was forced to go here. What to do now? After a little reflection there are several options, which one will you choose?\n 1) Go to palace of King 2)Go to the second largest town 3) Just go back to home')
+            fire_in_town.set_image(
+                url='https://steamuserimages-a.akamaihd.net/ugc/101724518970937891/AF85D181E33984FFEABDCE574F6EC281E49D3F33/')
             await ctx.send(embed=fire_in_town)
             reply = await self.client.wait_for('message', check=check3, timeout=180)
             if reply.content == '3':
@@ -3158,8 +3225,10 @@ class RPGgame(commands.Cog):
             king_palace = discord.Embed(
                 color=discord.Colour.dark_purple()
             )
-            king_palace.add_field(name='Palace', value='Palace in fire, but you can come in and you even know how. 1) Come in 2) Go away from palace in second largest town')
-            king_palace.set_image(url='https://s3.bioware.ru/forum/monthly_2017_12/96.jpg.55642607ccae0f132367325b1a274d50.jpg')
+            king_palace.add_field(name='Palace',
+                                  value='Palace in fire, but you can come in and you even know how. 1) Come in 2) Go away from palace in second largest town')
+            king_palace.set_image(
+                url='https://s3.bioware.ru/forum/monthly_2017_12/96.jpg.55642607ccae0f132367325b1a274d50.jpg')
             await ctx.send(embed=king_palace)
             reply = await self.client.wait_for('message', check=check, timeout=180)
             if reply.content == '2':
@@ -3167,7 +3236,8 @@ class RPGgame(commands.Cog):
             if reply.content == '1':
                 self.users[member_id]['storyfantasy'] = 10
         if self.users[member_id]['storyfantasy'] == 10:
-            await ctx.send('You came in palace and seems near to something interesting but suddenly you faced a big monster. Big eye.')
+            await ctx.send(
+                'You came in palace and seems near to something interesting but suddenly you faced a big monster. Big eye.')
             bandithp = 400
             while bandithp > 0:
                 if self.users[member_id]['health'] <= 0:
@@ -3318,15 +3388,17 @@ class RPGgame(commands.Cog):
             embed_treasure = discord.Embed(
                 color=discord.Colour.dark_purple()
             )
-            embed_treasure.add_field(name='Event', value='After a battle you found a treasure box! \n +1 treasure \n ``$rpgtreasure``')
-            embed_treasure.set_image(url='https://randomc.net/image/Overlord%20III/Overlord%20III%20-%2007%20-%20Large%2004.jpg')
+            embed_treasure.add_field(name='Event',
+                                     value='After a battle you found a treasure box! \n +1 treasure \n ``$rpgtreasure``')
+            embed_treasure.set_image(
+                url='https://randomc.net/image/Overlord%20III/Overlord%20III%20-%2007%20-%20Large%2004.jpg')
             await ctx.send(embed=embed_treasure)
             self.users[member_id]['treasure'] += 1
             embed_king = discord.Embed(
                 color=discord.Colour.dark_purple()
             )
             embed_king.add_field(name='Event',
-                                     value="The castle is completely devastated. The only option is that the king and his wards fled to another city or died. It gets too hot due to a flaming flame, so it's time to leave. \n 1) Leave palace 2) Save and quit")
+                                 value="The castle is completely devastated. The only option is that the king and his wards fled to another city or died. It gets too hot due to a flaming flame, so it's time to leave. \n 1) Leave palace 2) Save and quit")
             await ctx.send(embed=embed_king)
             reply3 = await self.client.wait_for('message', check=check, timeout=180)
             if reply3.content == '1':
@@ -3338,13 +3410,15 @@ class RPGgame(commands.Cog):
             embed_bye_bye = discord.Embed(
                 color=discord.Colour.dark_purple()
             )
-            embed_bye_bye.add_field(name='Town', value="The town is living it last minutes and you can notice how it begins to surround a mysterious ring of red energy. Are these magic circles of appeal? Who creates them? When will the sun rise? So many questions, but so far there is no answer. Now you going to other town, but there's no guarantee that it's not destroyed too.")
+            embed_bye_bye.add_field(name='Town',
+                                    value="The town is living it last minutes and you can notice how it begins to surround a mysterious ring of red energy. Are these magic circles of appeal? Who creates them? When will the sun rise? So many questions, but so far there is no answer. Now you going to other town, but there's no guarantee that it's not destroyed too.")
             self.users[member_id]['storyfantasy'] = 14
         if self.users[member_id]['storyfantasy'] == 14:
             embed_fiht_samurai = discord.Embed(
                 color=discord.Colour.dark_purple()
             )
-            await ctx.send('Your path blocks the disfigured creation of darkness similar to a samurai. \n 1) Fight 2) Save and quit')
+            embed_fiht_samurai.add_field(name='Fight', value='Your path blocks the disfigured creation of darkness similar to a samurai. \n 1) Fight 2) Save and quit')
+            await ctx.send(embed=embed_fiht_samurai)
             reply3 = await self.client.wait_for('message', check=check, timeout=180)
             if reply3.content == '2':
                 await ctx.send('Your game process saved')
@@ -3352,9 +3426,10 @@ class RPGgame(commands.Cog):
                 embed_too_fast = discord.Embed(
                     color=discord.Colour.dark_purple()
                 )
-                embed_too_fast.add_field(name='Creature', value="This creature is so fast! Seems i can't keep up with his attacks")
+                embed_too_fast.add_field(name='Creature',
+                                         value="This creature is so fast! Seems i can't keep up with his attacks")
                 await ctx.send(embed=embed_too_fast)
-                bandithp = 280
+                bandithp = 140
                 while bandithp > 0:
                     if bandithp > 0:
                         mob_damage = random.randint(1, 3) - self.users[member_id]['armorstat']
@@ -3501,6 +3576,7 @@ class RPGgame(commands.Cog):
                                                         value=f"You won the fight against Samurai with remaining {self.users[member_id]['health']} HP :heart: That's good!You got {exp_slime} EXP and found {gold_slime} GOLD :moneybag:")
                                 self.users[member_id]['exp'] += exp_slime
                                 self.users[member_id]['gold'] += gold_slime
+                                self.users[member_id]['storyfantasy'] = 15
                                 await ctx.send(embed=embedslimewin)
                                 if self.lvl_up(member_id):
                                     self.users[member_id]['strength'] += 1
@@ -3509,15 +3585,16 @@ class RPGgame(commands.Cog):
                                         self.users[member_id]['intelligence'] += 1
                                     await ctx.send(
                                         f"{member.mention} Your character is now level {self.users[member_id]['level']}")
-                                self.users[member_id]['storyfantasy'] = 15
         if self.users[member_id]['storyfantasy'] == 15:
             dead_forest = discord.Embed(
                 color=discord.Colour.dark_purple()
             )
-            dead_forest.add_field(name='Location', value='You came into dead forest and this place looking very dangerous. I see 3 ways to go, which one should i choose? First way is...')
+            dead_forest.add_field(name='Location',
+                                  value='You came into dead forest and this place looking very dangerous. I see 3 ways to go, which one should i choose? First way is lies through the dark forest , but who knows that the secrets and horrors it keeps? Second way is the nearby cave passage, but there are sectarians. Third way is very long and you even dont know that is there. \n 1) Go through forest 2) Go through cave 3) Go through long path')
             dead_forest.set_image(
-                url='https://i.pinimg.com/originals/f7/32/b1/f732b1dc5a5056ab1ae5fcb0c169e442.jpg')
+                url='https://img1.goodfon.com/wallpaper/nbig/2/49/les-ptica-derevya-svet-dead.jpg')
             await ctx.send(embed=dead_forest)
+
 
 def setup(client):
     client.add_cog(RPGgame(client))
