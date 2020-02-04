@@ -5,6 +5,9 @@ import json
 import asyncio
 import random
 from collections import OrderedDict
+import requests
+import random, sys
+from typing import List
 
 
 class Economycs(commands.Cog):
@@ -633,9 +636,10 @@ class Economycs(commands.Cog):
                             value=f"User - {a} Money - {result[element]['money']} :diamonds:",
                             inline=False)
         await ctx.send(embed=embed)
-
-
-
+    
+    @commands.command(name='hangman', aliases=['hg'])
+    async def hangman(self, ctx, theme=None):
+        print('test')
 
 def setup(client):
     client.add_cog(Economycs(client))
