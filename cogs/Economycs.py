@@ -648,7 +648,10 @@ class Economycs(commands.Cog):
             blanks_list = list(blanks)
             new_blanks_list = list(blanks)
             guess_list = []
-            embed_formatter =
+            embed_formatter = discord.Embed(
+                color=discord.Colour.dark_purple()
+            )
+            embed_formatter.set_author(name='Виселица')
             hangman_picture_1 = """```
       _______
      |/      |
@@ -677,7 +680,7 @@ class Economycs(commands.Cog):
      |
      |
     _|___```"""
-            hangman_picture_3 = """```
+            hangman_picture_2 = """```
       _______
      |/      |
      |      (_)
@@ -701,18 +704,52 @@ class Economycs(commands.Cog):
      |      (_)
      |      \|/
      |       |
+     |      |
+     |
+    _|___```"""
+            hangman_picture_7 = """```
+      _______
+     |/      |
+     |      (_)
+     |      \|/
+     |       |
      |      | |
      |
     _|___```"""
             await ctx.send('Hangman game!\n Guess a letter!')
+            image = 'шо'
+            embed_formatter.add_field(name='Животные', value=image)
             while guesses < 6:
+                embed_formatter.clear_fields()
+                if guesses == 0:
+                    image = hangman_picture_1
+                    embed_formatter.add_field(name='Животные', value=image)
+                if guesses == 1:
+                    image = hangman_picture_2
+                    embed_formatter.add_field(name='Животные', value=image)
+                if guesses == 2:
+                    image = hangman_picture_3
+                    embed_formatter.add_field(name='Животные', value=image)
+                if guesses == 3:
+                    image = hangman_picture_4
+                    embed_formatter.add_field(name='Животные', value=image)
+                if guesses == 4:
+                    image = hangman_picture_5
+                    embed_formatter.add_field(name='Животные', value=image)
+                if guesses == 5:
+                    image = hangman_picture_6
+                    embed_formatter.add_field(name='Животные', value=image)
+                if guesses == 6:
+                    image = hangman_picture_7
+                    embed_formatter.add_field(name='Животные', value=image)
+                await ctx.send(embed=embed_formatter)
                 guess = await self.client.wait_for('message', timeout=120)
                 if len(guess.content) > 1:
                     await ctx.send('Хватит жульничать')
                 if guess.content == " ":
                     await ctx.send("Эй, ты не хочешь играть чтоле? Давай пиши подходящие буквы!")
                 if guess.content in guess_list:
-                    await ctx.send(f"Ты уже использовал данн! Уже использованные символы:\n {guess_list} ")
+                    await ctx.send(f"Ты уже использовал данный символ! Список использованных символы:\n {guess_list} ")
                 else:
                     guess_list.append(guess.content)
                     i = 0
