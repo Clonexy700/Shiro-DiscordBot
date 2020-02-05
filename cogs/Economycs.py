@@ -636,10 +636,107 @@ class Economycs(commands.Cog):
                             value=f"User - {a} Money - {result[element]['money']} :diamonds:",
                             inline=False)
         await ctx.send(embed=embed)
-    
+
     @commands.command(name='hangman', aliases=['hg'])
     async def hangman(self, ctx, theme=None):
-        print('test')
+        if theme == 'животные':
+            word_list = ['питон']
+            guesses = 0
+            word = random.choice(word_list)
+            word_list = list(word)
+            blanks = "_" * len(word)
+            blanks_list = list(blanks)
+            new_blanks_list = list(blanks)
+            guess_list = []
+            embed_formatter =
+            hangman_picture_1 = """```
+      _______
+     |/      |
+     |      
+     |      
+     |       
+     |
+     |
+    _|___```"""
+
+            hangman_picture_5 = """```
+      _______
+     |/      |
+     |      (_)
+     |      \|/
+     |       |
+     |
+     |
+    _|___```"""
+            hangman_picture_4 = """```
+      _______
+     |/      |
+     |      (_)
+     |      \|/
+     |
+     |
+     |
+    _|___```"""
+            hangman_picture_3 = """```
+      _______
+     |/      |
+     |      (_)
+     |      \|
+     |
+     |
+     |
+    _|___```"""
+            hangman_picture_3 = """```
+      _______
+     |/      |
+     |      (_)
+     |
+     |
+     |
+     |
+    _|___```"""
+            hangman_picture_6 = """```
+      _______
+     |/      |
+     |      (_)
+     |      \|/
+     |       |
+     |      | |
+     |
+    _|___```"""
+            await ctx.send('Hangman game!\n Guess a letter!')
+            while guesses < 6:
+                guess = await self.client.wait_for('message', timeout=120)
+                if len(guess.content) > 1:
+                    await ctx.send('Хватит жульничать')
+                if guess.content == " ":
+                    await ctx.send("Эй, ты не хочешь играть чтоле? Давай пиши подходящие буквы!")
+                if guess.content in guess_list:
+                    await ctx.send(f"Ты уже использовал данн! Уже использованные символы:\n {guess_list} ")
+                else:
+                    guess_list.append(guess.content)
+                    i = 0
+                    while i < len(word):
+                        if guess.content == word[i]:
+                            new_blanks_list[i] = word_list[i]
+                        i = i + 1
+
+                    if new_blanks_list == blanks_list:
+                        await ctx.send("Your letter isn't here.")
+                        guesses = guesses + 1
+                        await ctx.send(f'{guesses} {word}')
+
+                        if guesses < 6:
+                            await ctx.send(f"Guess again.{blanks_list}")
+
+                    if word_list != blanks_list:
+                        blanks_list = new_blanks_list[:]
+                        await ctx.send(f'{blanks_list}')
+
+                        if word_list == blanks_list:
+                            await ctx.send('you win')
+                            break
+
 
 def setup(client):
     client.add_cog(Economycs(client))
