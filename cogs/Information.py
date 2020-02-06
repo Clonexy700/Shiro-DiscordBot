@@ -8,7 +8,7 @@ import re
 
 from io import BytesIO
 from discord.ext import commands
-from utility import http
+from utility import http, argparser
 
 
 class Info(commands.Cog):
@@ -24,6 +24,17 @@ class Info(commands.Cog):
             return await ctx.send("The API returned an error or didn't return JSON...")
 
         await ctx.send(r[endpoint])
+
+    async def api_img_creator(self, ctx, url, filename, content=None):
+        async with ctx.channel.typing():
+            req = await http.get(url, res_method="read")
+
+            if req is None:
+                return await ctx.send("I couldn't create the image ;-;")
+
+            bio = BytesIO(req)
+            bio.seek(0)
+            await ctx.send(content=content, file=discord.File(bio, filename=filename))
 
     @commands.command(aliases=['color'])
     async def colour(self, ctx, colour: str):
@@ -87,6 +98,43 @@ class Info(commands.Cog):
         )
         embed_reversion.add_field(name='Reverse 🔁', value=t_rev)
         await ctx.send(embed=embed_reversion)
+
+    @commands.command()
+    async def password(self, ctx, nbytes: int = 18):
+        if nbytes not in range(3, 1401):
+            return await ctx.send("I only accept any numbers between 3-1400")
+        if hasattr(ctx, 'guild') and ctx.guild is not None:
+            await ctx.send(f"Sending you a private message with your random generated password **{ctx.author.name}**")
+        embed_password = discord.Embed(
+            color=discord.Colour.dark_purple()
+        )
+        embed_password.add_field(name='Password generation :lock: ', value=f"``Here is your password:``\n{secrets.token_urlsafe(nbytes)}")
+        await ctx.author.send(embed=embed_password)
+
+    @commands.command()
+    async def supreme(self, ctx, *, text: commands.clean_content(fix_channel_mentions=True)):
+        parser = argparser.Arguments()
+        parser.add_argument('input', nargs="+", default=None)
+        parser.add_argument('-d', '--dark', action='store_true')
+        parser.add_argument('-l', '--light', action='store_true')
+
+        args, valid_check = parser.parse_args(text)
+        if not valid_check:
+            return await ctx.send(args)
+
+        inputText = urllib.parse.quote(' '.join(args.input))
+        if len(inputText) > 500:
+            return await ctx.send(f"**{ctx.author.name}**, the Supreme API is limited to 500 characters, sorry.")
+
+        darkorlight = ""
+        if args.dark:
+            darkorlight = "dark=true"
+        if args.light:
+            darkorlight = "light=true"
+        if args.dark and args.light:
+            return await ctx.send(f"**{ctx.author.name}**, you can't define both --dark and --light, sorry..")
+
+        await self.api_img_creator(ctx, f"https://api.alexflipnote.dev/supreme?text={inputText}&{darkorlight}", "supreme.png")
 
 
 def setup(client):
