@@ -525,6 +525,7 @@ async def marry_timeout(ctx, error):
 
 @client.command(name='say', help=' bot will say that u say to say')
 async def say(ctx, *, message: str):
+    await ctx.channel.purge(limit=1)
     await ctx.send(message)
 
 

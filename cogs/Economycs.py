@@ -125,7 +125,7 @@ class Economycs(commands.Cog):
             await ctx.send('You are not Shiro owner for using this command!')
 
     @commands.cooldown(1, 7200, commands.BucketType.user)
-    @commands.command()
+    @commands.command(name='moneydaily', aliases=['daily', 'dailymoney'])
     async def moneydaily(self, ctx):
         embed_daily_money = discord.Embed(
             color=discord.Colour.dark_purple()
@@ -659,258 +659,275 @@ class Economycs(commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command(name='hangman', aliases=['hg'])
-    async def hangman(self, ctx, theme=None):
-        if theme == 'животные':
-            word_list = ['питон',
-                         'анаконда',
-                         'змея',
-                         'сова',
-                         'мышь',
-                         'пчела',
-                         'шершень',
-                         'собака',
-                         'хорек',
-                         'кошка',
-                         'афалина',
-                         'баран',
-                         'нерпа',
-                         'бабуин',
-                         'аплодонтия',
-                         'вол',
-                         'верблюд',
-                         'ремнезуб',
-                         'бегемот',
-                         'барсук',
-                         'белка',
-                         'гиббон',
-                         'белуха',
-                         'медведь',
-                         'бизон',
-                         'бобер',
-                         'муравьед',
-                         'кенгуру',
-                         'валлаби',
-                         'бонго',
-                         'буйвол',
-                         'гиена',
-                         'бурозубка',
-                         'бурундук',
-                         'викунья',
-                         'мангуст',
-                         'волк',
-                         'вомбат',
-                         'выхухоль',
-                         'газель',
-                         'гамадрил',
-                         'гепард',
-                         'геренук',
-                         'мартышка',
-                         'песец',
-                         'кит',
-                         'горилла',
-                         'зебра',
-                         'тапир',
-                         'гринда',
-                         'гуанако',
-                         'горностай',
-                         'дельфин',
-                         'жираф',
-                         'дикдик',
-                         'кабан',
-                         'дзерен',
-                         'осел',
-                         'динго',
-                         'кенгуру',
-                         'норка',
-                         'долгопят',
-                         'еж',
-                         'зубр',
-                         'ирбис',
-                         'тигр',
-                         'какомицли',
-                         'капибара',
-                         'игрунка',
-                         'бегемот',
-                         'кашалот',
-                         'коала',
-                         'козел',
-                         'корова',
-                         'свинья',
-                         'косуля',
-                         'крыса',
-                         'лев',
-                         'леопард',
-                         'гепард',
-                         'летяга',
-                         'лось',
-                         'лошадь',
-                         'конь',
-                         'морж',
-                         'овца',
-                         'ондатра',
-                         'песчанка',
-                         'пони',
-                         'рысь',
-                         'лисица',
-                         'лиса',
-                         'антилопа',
-                         'сайгак',
-                         'соня',
-                         'ленивец',
-                         'шимпанзе',
-                         'ягуар',
-                         'як',
-                         'шиншилла']
-            guesses = 0
-            word = random.choice(word_list)
-            word_list = list(word)
-            blanks = ("◆" * len(word))
-            blanks_list = list(blanks)
-            unbox_blank = (' '.join(blanks_list))
-            new_blanks_list = list(blanks)
-            guess_list = []
-            guess_list_unbox = (', '.join(guess_list))
-            embed_formatter = discord.Embed(
+    async def hangman(self, ctx):
+        author = ctx.author
+        member_id = str(author.id)
+        word_list = ['питон',
+                     'анаконда',
+                     'змея',
+                     'сова',
+                     'мышь',
+                     'пчела',
+                     'шершень',
+                     'собака',
+                     'хорек',
+                     'кошка',
+                     'афалина',
+                     'баран',
+                     'нерпа',
+                     'бабуин',
+                     'аплодонтия',
+                     'вол',
+                     'верблюд',
+                     'ремнезуб',
+                     'бегемот',
+                     'барсук',
+                     'белка',
+                     'гиббон',
+                     'белуха',
+                     'медведь',
+                     'бизон',
+                     'бобер',
+                     'муравьед',
+                     'кенгуру',
+                     'валлаби',
+                     'бонго',
+                     'буйвол',
+                     'гиена',
+                     'бурозубка',
+                     'бурундук',
+                     'викунья',
+                     'мангуст',
+                     'волк',
+                     'вомбат',
+                     'выхухоль',
+                     'газель',
+                     'гамадрил',
+                     'гепард',
+                     'геренук',
+                     'мартышка',
+                     'песец',
+                     'кит',
+                     'горилла',
+                     'зебра',
+                     'тапир',
+                     'гринда',
+                     'гуанако',
+                     'горностай',
+                     'дельфин',
+                     'жираф',
+                     'дикдик',
+                     'кабан',
+                     'дзерен',
+                     'осел',
+                     'динго',
+                     'кенгуру',
+                     'норка',
+                     'долгопят',
+                     'еж',
+                     'зубр',
+                     'ирбис',
+                     'тигр',
+                     'какомицли',
+                     'капибара',
+                     'игрунка',
+                     'бегемот',
+                     'кашалот',
+                     'коала',
+                     'козел',
+                     'корова',
+                     'свинья',
+                     'косуля',
+                     'крыса',
+                     'лев',
+                     'леопард',
+                     'гепард',
+                     'летяга',
+                     'лось',
+                     'лошадь',
+                     'конь',
+                     'морж',
+                     'овца',
+                     'ондатра',
+                     'песчанка',
+                     'пони',
+                     'рысь',
+                     'лисица',
+                     'лиса',
+                     'антилопа',
+                     'сайгак',
+                     'соня',
+                     'ленивец',
+                     'шимпанзе',
+                     'ягуар',
+                     'як',
+                     'шиншилла']
+        guesses = 0
+        word = random.choice(word_list)
+        word_list = list(word)
+        blanks = ("◆" * len(word))
+        blanks_list = list(blanks)
+        unbox_blank = (' '.join(blanks_list))
+        new_blanks_list = list(blanks)
+        guess_list = []
+        guess_list_unbox = (', '.join(guess_list))
+        embed_formatter = discord.Embed(
+            color=discord.Colour.dark_purple()
+        )
+        embed_formatter.set_author(name='Виселица')
+        hangman_picture_1 = """```
+              _______
+             |/      |
+             |      
+             |      
+             |       
+             |
+             |
+            _|___```"""
+
+        hangman_picture_5 = """```
+              _______
+             |/      |
+             |      (_)
+             |      \|/
+             |       |
+             |
+             |
+            _|___```"""
+        hangman_picture_4 = """```
+              _______
+             |/      |
+             |      (_)
+             |      \|/
+             |
+             |
+             |
+            _|___```"""
+        hangman_picture_3 = """```
+              _______
+             |/      |
+             |      (_)
+             |      \|
+             |
+             |
+             |
+            _|___```"""
+        hangman_picture_2 = """```
+              _______
+             |/      |
+             |      (_)
+             |
+             |
+             |
+             |
+            _|___```"""
+        hangman_picture_6 = """```
+              _______
+             |/      |
+             |      (_)
+             |      \|/
+             |       |
+             |      |
+             |
+            _|___```"""
+        hangman_picture_7 = """```
+              _______
+             |/      |
+             |      (_)
+             |      \|/
+             |       |
+             |      | |
+             |
+            _|___```"""
+        image = 'шо'
+
+        embed_formatter.add_field(name='Животные', value=image)
+        embed_formatter.add_field(name='Информация', value=f'\n Попыток: {guesses} \n ```{unbox_blank}```')
+        embed_formatter.set_footer(text=str(guess_list_unbox))
+        while guesses < 7:
+            embed_formatter.clear_fields()
+            if guesses == 0:
+                image = hangman_picture_1
+                embed_formatter.add_field(name='Животные', value=image)
+                embed_formatter.add_field(name='Информация', value=f'\n Попыток: {guesses} \n ```{unbox_blank}```')
+                embed_formatter.set_footer(text=str(guess_list_unbox))
+            if guesses == 1:
+                image = hangman_picture_2
+                embed_formatter.add_field(name='Животные', value=image)
+                embed_formatter.add_field(name='Информация', value=f'\n Попыток: {guesses} \n ```{unbox_blank}```')
+                embed_formatter.set_footer(text=str(guess_list_unbox))
+            if guesses == 2:
+                image = hangman_picture_3
+                embed_formatter.add_field(name='Животные', value=image)
+                embed_formatter.add_field(name='Информация', value=f'\n Попыток: {guesses} \n ```{unbox_blank}```')
+                embed_formatter.set_footer(text=str(guess_list_unbox))
+            if guesses == 3:
+                image = hangman_picture_4
+                embed_formatter.add_field(name='Животные', value=image)
+                embed_formatter.add_field(name='Информация', value=f'\n Попыток: {guesses} \n ```{unbox_blank}```')
+                embed_formatter.set_footer(text=str(guess_list_unbox))
+            if guesses == 4:
+                image = hangman_picture_5
+                embed_formatter.add_field(name='Животные', value=image)
+                embed_formatter.add_field(name='Информация', value=f'\n Попыток: {guesses} \n ```{unbox_blank}```')
+                embed_formatter.set_footer(text=str(guess_list_unbox))
+            if guesses == 5:
+                image = hangman_picture_6
+                embed_formatter.add_field(name='Животные', value=image)
+                embed_formatter.add_field(name='Информация', value=f'\n Попыток: {guesses} \n ```{unbox_blank}```')
+                embed_formatter.set_footer(text=str(guess_list_unbox))
+            if guesses == 6:
+                image = hangman_picture_7
+                embed_formatter.add_field(name='Животные', value=image)
+                embed_formatter.add_field(name='Информация', value=f'\n Попыток: {guesses} \n ```{unbox_blank}```')
+                embed_formatter.set_footer(text=str(guess_list_unbox))
+            await ctx.send(embed=embed_formatter)
+            guess = await self.client.wait_for('message', timeout=120)
+            if len(guess.content) > 1 and guess.content != word:
+                await ctx.send('Хватит жульничать')
+                guesses -= 1
+            if guess.content == " ":
+                await ctx.send("Эй, ты не хочешь играть чтоле? Давай пиши подходящие буквы!")
+            if guess.content in guess_list:
+                await ctx.send(f"Ты уже использовал данный символ!")
+            else:
+                guess_list.append(guess.content)
+                guess_list_unbox = (', '.join(guess_list))
+                i = 0
+                while i < len(word):
+                    if guess.content == word[i]:
+                        new_blanks_list[i] = word_list[i]
+                    i = i + 1
+
+                if new_blanks_list == blanks_list:
+                    guesses = guesses + 1
+
+                if word_list != blanks_list:
+                    blanks_list = new_blanks_list[:]
+                    unbox_blank = (', '.join(blanks_list))
+
+                    if word_list == blanks_list or guess.content == word:
+                        image = hangman_picture_4
+                        embed_formatter.add_field(name='Животные', value=image)
+                        embed_formatter.add_field(name='Информация',
+                                                  value=f'\n Попыток: {guesses} \n ```{unbox_blank}```')
+                        embed_formatter.set_footer(text=str(guess_list_unbox))
+                        self.users[member_id]['money'] += 1000
+                        await ctx.send('За победу в игре "Виселица" вы получаете 1000 :diamonds: на ваш счёт!')
+                        break
+        if guesses == 7:
+            await ctx.send(f'Вы проиграли! Правильное слово: {word}')
+
+    @hangman.error
+    async def hangman_error(self, ctx, error):
+        if isinstance(error, commands.CommandInvokeError):
+            embedtimeout = discord.Embed(
                 color=discord.Colour.dark_purple()
             )
-            embed_formatter.set_author(name='Виселица')
-            hangman_picture_1 = """```
-      _______
-     |/      |
-     |      
-     |      
-     |       
-     |
-     |
-    _|___```"""
-
-            hangman_picture_5 = """```
-      _______
-     |/      |
-     |      (_)
-     |      \|/
-     |       |
-     |
-     |
-    _|___```"""
-            hangman_picture_4 = """```
-      _______
-     |/      |
-     |      (_)
-     |      \|/
-     |
-     |
-     |
-    _|___```"""
-            hangman_picture_3 = """```
-      _______
-     |/      |
-     |      (_)
-     |      \|
-     |
-     |
-     |
-    _|___```"""
-            hangman_picture_2 = """```
-      _______
-     |/      |
-     |      (_)
-     |
-     |
-     |
-     |
-    _|___```"""
-            hangman_picture_6 = """```
-      _______
-     |/      |
-     |      (_)
-     |      \|/
-     |       |
-     |      |
-     |
-    _|___```"""
-            hangman_picture_7 = """```
-      _______
-     |/      |
-     |      (_)
-     |      \|/
-     |       |
-     |      | |
-     |
-    _|___```"""
-            image = 'шо'
-
-            embed_formatter.add_field(name='Животные', value=image)
-            embed_formatter.add_field(name='Информация', value=f'\n Попыток: {guesses} \n ```{unbox_blank}```')
-            embed_formatter.set_footer(text=str(guess_list_unbox))
-            while guesses < 7:
-                embed_formatter.clear_fields()
-                if guesses == 0:
-                    image = hangman_picture_1
-                    embed_formatter.add_field(name='Животные', value=image)
-                    embed_formatter.add_field(name='Информация', value=f'\n Попыток: {guesses} \n ```{unbox_blank}```')
-                    embed_formatter.set_footer(text=str(guess_list_unbox))
-                if guesses == 1:
-                    image = hangman_picture_2
-                    embed_formatter.add_field(name='Животные', value=image)
-                    embed_formatter.add_field(name='Информация', value=f'\n Попыток: {guesses} \n ```{unbox_blank}```')
-                    embed_formatter.set_footer(text=str(guess_list_unbox))
-                if guesses == 2:
-                    image = hangman_picture_3
-                    embed_formatter.add_field(name='Животные', value=image)
-                    embed_formatter.add_field(name='Информация', value=f'\n Попыток: {guesses} \n ```{unbox_blank}```')
-                    embed_formatter.set_footer(text=str(guess_list_unbox))
-                if guesses == 3:
-                    image = hangman_picture_4
-                    embed_formatter.add_field(name='Животные', value=image)
-                    embed_formatter.add_field(name='Информация', value=f'\n Попыток: {guesses} \n ```{unbox_blank}```')
-                    embed_formatter.set_footer(text=str(guess_list_unbox))
-                if guesses == 4:
-                    image = hangman_picture_5
-                    embed_formatter.add_field(name='Животные', value=image)
-                    embed_formatter.add_field(name='Информация', value=f'\n Попыток: {guesses} \n ```{unbox_blank}```')
-                    embed_formatter.set_footer(text=str(guess_list_unbox))
-                if guesses == 5:
-                    image = hangman_picture_6
-                    embed_formatter.add_field(name='Животные', value=image)
-                    embed_formatter.add_field(name='Информация', value=f'\n Попыток: {guesses} \n ```{unbox_blank}```')
-                    embed_formatter.set_footer(text=str(guess_list_unbox))
-                if guesses == 6:
-                    image = hangman_picture_7
-                    embed_formatter.add_field(name='Животные', value=image)
-                    embed_formatter.add_field(name='Информация', value=f'\n Попыток: {guesses} \n ```{unbox_blank}```')
-                    embed_formatter.set_footer(text=str(guess_list_unbox))
-                await ctx.send(embed=embed_formatter)
-                guess = await self.client.wait_for('message', timeout=120)
-                if len(guess.content) > 1:
-                    await ctx.send('Хватит жульничать')
-                if guess.content == " ":
-                    await ctx.send("Эй, ты не хочешь играть чтоле? Давай пиши подходящие буквы!")
-                if guess.content in guess_list:
-                    await ctx.send(f"Ты уже использовал данный символ!")
-                else:
-                    guess_list.append(guess.content)
-                    guess_list_unbox = (', '.join(guess_list))
-                    i = 0
-                    while i < len(word):
-                        if guess.content == word[i]:
-                            new_blanks_list[i] = word_list[i]
-                        i = i + 1
-
-                    if new_blanks_list == blanks_list:
-                        guesses = guesses + 1
-
-
-                    if word_list != blanks_list:
-                        blanks_list = new_blanks_list[:]
-                        unbox_blank = (', '.join(blanks_list))
-
-                        if word_list == blanks_list:
-                            await ctx.send('you win')
-                            break
-            if guesses == 7:
-                await ctx.send(f'Вы проиграли! Правильное слово: {word}')
-
+            embedtimeout.add_field(name='Whooopsyy! :interrobang: ',
+                                   value="Seems time is over. Don't worry and try to ask again!")
+            embedtimeout.set_image(url='https://media3.giphy.com/media/uHJTtpE9WqfYc/source.gif')
+            await ctx.send(embed=embedtimeout)
 
 def setup(client):
     client.add_cog(Economycs(client))
