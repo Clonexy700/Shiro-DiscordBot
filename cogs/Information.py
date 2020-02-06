@@ -55,7 +55,6 @@ class Info(commands.Cog):
         await ctx.send(embed=embed, content=f"{ctx.invoked_with.title()} name: **{r['name']}**")
 
     @commands.command()
-    @commands.cooldown(rate=1, per=2.0, type=commands.BucketType.user)
     async def urban(self, ctx, *, search: str):
         async with ctx.channel.typing():
             url = await http.get(f'https://api.urbandictionary.com/v0/define?term={search}', res_method="json")
@@ -74,7 +73,21 @@ class Info(commands.Cog):
                 definition = definition.rsplit(' ', 1)[0]
                 definition += '...'
 
-            await ctx.send(f":bookmark:  Definitions for **{result['word']}**```fix\n{definition}```")
+            embed_urban = discord.Embed(
+                color=discord.Colour.dark_purple()
+            )
+            embed_urban.add_field(name=f"Meaning of: {result['word']}", value=f':bookmark: \n```\n{definition}```')
+            await ctx.send(embed=embed_urban)
+
+    @commands.command()
+    async def reverse(self, ctx, *, text: str):
+        t_rev = text[::-1].replace("@", "@\u200B").replace("&", "&\u200B")
+        embed_reversion = discord.Embed(
+            color=discord.Colour.dark_purple()
+        )
+        embed_reversion.add_field(name='Reverse 🔁', value=t_rev)
+        await ctx.send(embed=embed_reversion)
+
 
 def setup(client):
     client.add_cog(Info(client))
