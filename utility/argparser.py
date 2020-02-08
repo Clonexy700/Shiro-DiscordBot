@@ -13,11 +13,9 @@ class Arguments:
         self.posix = posix
 
     def add_argument(self, *inputs, **kwargs):
-        """ Shortcut to argparse.add_argument """
         self.parser.add_argument(*inputs, **kwargs)
 
     def parse_args(self, text):
-        """ Shortcut to argparse.parse_args with shlex implemented """
         try:
             args = self.parser.parse_args(
                 shlex.split(text if text else "", posix=self.posix)

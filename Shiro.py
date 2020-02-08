@@ -5,6 +5,8 @@ import requests as rq
 from discord import opus
 import asyncio
 import json
+from PIL import Image, ImageDraw, ImageFont, ImageOps
+from io import BytesIO
 from discord.ext import commands
 import random
 
@@ -53,13 +55,38 @@ async def on_member_join(member):
     await member.dm_channel.send(
         f'Hi {member.name}, welcome to my Discord server! {random.choice(msgend)} My name is Shiro! Play with me, please. <3 My command list is - $help '
     )
-    role = discord.utils.get('Stranger')
-    await discord.Member.add_roles(member, role)
+    channel = client.get_channel(674961938840682526)
 
+    avatar = BytesIO()
+    await member.avatar_url.save(avatar)
+
+    avatar = Image.open(avatar)
+    avatar = avatar.resize((130, 130))
+    bigsize = (avatar.size[0] * 3, avatar.size[1] * 3)
+    mask = Image.new('L', bigsize, 0)
+    draw = ImageDraw.Draw(mask)
+    draw.ellipse((0, 0) + bigsize, fill=255)
+    mask = mask.resize(avatar.size, Image.ANTIALIAS)
+    avatar.putalpha(mask)
+
+    output = ImageOps.fit(avatar, mask.size, centering=(0.5, 0.5))
+    output.putalpha(mask)
+    output.save('avatar.png')
+
+    avatar = Image.open('avatar.png')
+    fundo = Image.open('bemvindo.png')
+    fonte = ImageFont.truetype('BebasNeue.ttf', 45)
+    escrever = ImageDraw.Draw(fundo)
+    escrever.text(xy=(180, 174), text=member.name, fill=(53, 59, 72), font=fonte)  # output name when the user join!
+    fundo.paste(avatar, (40, 90), avatar)
+    bv = BytesIO()
+    fundo.save(bv, "PNG", quality=100)
+    bv.seek(0)
+    file = discord.File(bv, filename="bv.png")
+    await channel.send(file=file)
 
 @client.command(name='help', pass_context=True)
 async def help(ctx):
-
     eset = discord.Embed(
         color=discord.Colour.dark_purple()
     )
@@ -205,8 +232,8 @@ async def Games(ctx):
     embed1.add_field(name='$bkeyt',
                      value='``brick - knife - evidence - yandere - tentacles game, print $bkeytinfo for more information``')
     embed1.add_field(name='$8ball question', value='``Magic answer from ball``', inline=False)
-    embed1.add_field(name='$dice # #', value='# sides # dices``Rolls dice``', inline=False)
-    embed1.add_field(name='$thimble #', value='#thimbles ``the thimble game!``', inline=False)
+    embed1.add_field(name='$dice # #', value='# sides # dices \n``Rolls dice``', inline=False)
+    embed1.add_field(name='$thimble #', value='#thimbles \n``the thimble game!``', inline=False)
     embed1.add_field(name='$fortune', value='``sends you prediction from fortune cookie``', inline=False)
     await ctx.send(embed=embed1)
 
@@ -221,10 +248,10 @@ async def games(ctx):
     embed1.add_field(name='$rockpaperscissors $rcp $rps', value='``Rock paper scissors game``', inline=False)
     embed1.add_field(name='$bkeyt',
                      value='``brick - knife - evidence - yandere - tentacles game, print $bkeytinfo for more information``')
-    embed1.add_field(name='$8ball question', value='``Magic answer from ball``', inline=False)
-    embed1.add_field(name='$dice # #', value='# sides # dices``Rolls dice``', inline=False)
-    embed1.add_field(name='$thimble #', value='#thimbles ``the thimble game!``', inline=False)
-    embed1.add_field(name='$fortune', value='``sends you prediction from fortune cookie``', inline=False)
+    embed1.add_field(name='``$8ball question``', value='``Magic answer from ball``', inline=False)
+    embed1.add_field(name='``$dice # #``', value='# sides # dices \n``Rolls dice``', inline=False)
+    embed1.add_field(name='``$thimble #``', value='#thimbles \n``the thimble game!``', inline=False)
+    embed1.add_field(name='``$fortune``', value='``sends you prediction from fortune cookie``', inline=False)
     await ctx.send(embed=embed1)
 
 
