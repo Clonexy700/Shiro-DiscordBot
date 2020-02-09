@@ -551,8 +551,14 @@ async def marry_timeout(ctx, error):
 
 @client.command(name='say', help=' bot will say that u say to say')
 async def say(ctx, *, message: str):
+    author = ctx.message.author
     await ctx.channel.purge(limit=1)
-    await ctx.send(message)
+    embed_say = discord.Embed(
+        color=discord.Colour.dark_purple()
+    )
+    embed_say.add_field(name='Shiro 💜', value=message)
+    embed_say.set_footer(text=f'requested by {author.name}')
+    await ctx.send(embed=embed_say)
 
 
 @client.command(name='clear', pass_context=True)

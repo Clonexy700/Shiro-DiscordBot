@@ -2,8 +2,10 @@ import time
 import aiohttp
 import discord
 import importlib
+import re
 import os
 import sys
+import asyncio
 from discord.ext import commands
 from utility import http, default
 
@@ -18,7 +20,7 @@ class MemberID(commands.Converter):
                 raise commands.BadArgument(f"{argument} is not a valid member or member ID.") from None
         else:
             return m.id
-        
+
 class ActionReason(commands.Converter):
     async def convert(self, ctx, argument):
         ret = argument
@@ -231,7 +233,7 @@ class Admin(commands.Cog):
                 return False
 
             try:
-                checker = await self.bot.wait_for('message', timeout=30.0, check=role_checker)
+                checker = await self.client.wait_for('message', timeout=30.0, check=role_checker)
                 if checker.author.id == ctx.author.id:
                     await role.edit(mentionable=False, reason=f"[ {ctx.author} ] announcerole command")
                     return await msg.edit(
@@ -296,7 +298,7 @@ class Admin(commands.Cog):
 
     @commands.group()
     @commands.guild_only()
-    @commands.has_permissions(manage_messages=True)
+    @commands.has_permissions(administrator=True)
     async def prune(self, ctx):
         if ctx.invoked_subcommand is None:
             await ctx.send_help(str(ctx.command))
@@ -361,7 +363,7 @@ class Admin(commands.Cog):
         getprefix = prefix if prefix else self.config.prefix
 
         def predicate(m):
-            return (m.webhook_id is None and m.author.bot) or m.content.startswith(tuple(getprefix))
+            return (m.webhook_id is None and m.author.client) or m.content.startswith(tuple(getprefix))
 
         await self.do_removal(ctx, search, predicate)
 
@@ -369,7 +371,7 @@ class Admin(commands.Cog):
     async def _users(self, ctx, prefix=None, search=100):
 
         def predicate(m):
-            return m.author.bot is False
+            return m.author.client is False
 
         await self.do_removal(ctx, search, predicate)
 
