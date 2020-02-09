@@ -123,6 +123,7 @@ async def help(ctx):
     embed_categories.add_field(name='Игры',
                                value='``отправляет меню с командами игр на русском``:flag_ru: :video_game: ',
                                inline=False)
+    embed_categories.set_image(url='https://cdn.discordapp.com/attachments/621005423335702528/675953029245304832/6ebb695705e70bd2.gif')
     await ctx.send(embed=embed_categories)
 
 
@@ -167,6 +168,11 @@ async def emotions(ctx):
     embedemotions.add_field(name='$spy @id', value="``Sends spy emotion``", inline=True)
     embedemotions.add_field(name='$disgust', value="``Sends disgust emotion``", inline=True)
     embedemotions.add_field(name='$yawn', value="``Sends yawn emotion``", inline=True)
+    embedemotions.add_field(name='$awoo', value="``Sends awooo emotion``", inline=True)
+    embedemotions.add_field(name='$uwu', value="``Sends uwu emotion``", inline=True)
+    embedemotions.add_field(name='$jojo', value="``Sends jojo emotion``", inline=True)
+    embedemotions.set_image(url='https://cdn.discordapp.com/attachments/621005423335702528/675956909609844736/373b00b003619f74.gif')
+
 
     await ctx.send(embed=embed)
     await ctx.send(embed=embedemotions)
@@ -216,6 +222,7 @@ async def Emotions(ctx):
     embedemotions.add_field(name='$awoo', value="``Sends awooo emotion``", inline=True)
     embedemotions.add_field(name='$uwu', value="``Sends uwu emotion``", inline=True)
     embedemotions.add_field(name='$jojo', value="``Sends jojo emotion``", inline=True)
+    embedemotions.set_image(url='https://cdn.discordapp.com/attachments/621005423335702528/675956909609844736/373b00b003619f74.gif')
 
     await ctx.send(embed=embed)
     await ctx.send(embed=embedemotions)

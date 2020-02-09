@@ -110,8 +110,6 @@ class Admin(commands.Cog):
     @commands.guild_only()
     @commands.has_permissions(kick_members=True)
     async def kick(self, ctx, member: discord.Member, *, reason: str = None):
-        if await permissions.check_priv(ctx, member):
-            return
 
         try:
             await member.kick(reason=default.responsible(ctx.author, reason))
@@ -123,9 +121,6 @@ class Admin(commands.Cog):
     @commands.guild_only()
     @commands.has_permissions(manage_nicknames=True)
     async def nickname(self, ctx, member: discord.Member, *, name: str = None):
-        if await permissions.check_priv(ctx, member):
-            return
-
         try:
             await member.edit(nick=name, reason=default.responsible(ctx.author, "Changed by command"))
             message = f"Changed **{member.name}'s** nickname to **{name}**"
@@ -134,6 +129,22 @@ class Admin(commands.Cog):
             await ctx.send(message)
         except Exception as e:
             await ctx.send(e)
+
+    @commands.command(aliases=["жалоба", "wrn", 'жб'])
+    @commands.guild_only()
+    async def warn(self, ctx, member: discord.Member, *, message: str):
+        await ctx.channel.purge(limit=1)
+        channel = self.client.get_channel(675742440245952520)
+        author = ctx.message.author
+        embed_warn = discord.Embed(
+            color=discord.Colour.dark_purple(),
+            timestamp=ctx.message.created_at
+        )
+        embed_warn.add_field(name='Жалоба', value=f'Жалоба на: {member.mention}\n От {author.mention } \n Содержание '
+                                                  f'жалобы:\n ```{message}```')
+        embed_warn.set_footer(text=f'warn {author.name} на {member.name}')
+        await ctx.send('Ваша жалоба была отправлена на канал администрации! Ожидайте.')
+        await channel.send(embed=embed_warn)
 
     @commands.command()
     @commands.guild_only()
@@ -174,8 +185,6 @@ class Admin(commands.Cog):
     @commands.guild_only()
     @commands.has_permissions(manage_roles=True)
     async def mute(self, ctx, member: discord.Member, *, reason: str = None):
-        if await permissions.check_priv(ctx, member):
-            return
 
         muted_role = next((g for g in ctx.guild.roles if g.name == "Muted"), None)
 
@@ -193,9 +202,6 @@ class Admin(commands.Cog):
     @commands.guild_only()
     @commands.has_permissions(manage_roles=True)
     async def unmute(self, ctx, member: discord.Member, *, reason: str = None):
-        """ Unmutes a user from the current server. """
-        if await permissions.check_priv(ctx, member):
-            return
 
         muted_role = next((g for g in ctx.guild.roles if g.name == "Muted"), None)
 
