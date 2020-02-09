@@ -907,11 +907,12 @@ class Economycs(commands.Cog):
                     unbox_blank = (', '.join(blanks_list))
 
                     if word_list == blanks_list or guess.content == word:
-                        image = hangman_picture_4
+                        embed_formatter.clear_fields()
                         embed_formatter.add_field(name='Животные', value=image)
                         embed_formatter.add_field(name='Информация',
                                                   value=f'\n Попыток: {guesses} \n ```{unbox_blank}```')
                         embed_formatter.set_footer(text=str(guess_list_unbox))
+                        await ctx.send(embed=embed_formatter)
                         self.users[member_id]['money'] += 1000
                         await ctx.send('За победу в игре "Виселица" вы получаете 1000 :diamonds: на ваш счёт!')
                         break

@@ -254,7 +254,6 @@ async def games(ctx):
     embed1.add_field(name='``$fortune``', value='``sends you prediction from fortune cookie``', inline=False)
     await ctx.send(embed=embed1)
 
-
 @client.command(name='info', pass_context=True)
 async def info(ctx):
     embed1 = discord.Embed(
