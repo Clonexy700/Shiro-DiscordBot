@@ -15,6 +15,8 @@ from io import BytesIO
 from discord.ext import commands
 from utility import http, argparser, default
 
+msgend = [":spades:", ":clubs:", ":diamonds:", ":hearts:", ":fleur_de_lis:", ":black_heart:"]
+
 
 class Info(commands.Cog):
     def __init__(self, client):
@@ -95,7 +97,7 @@ class Info(commands.Cog):
             embed_urban.add_field(name=f"Meaning of: {result['word']}", value=f':bookmark: \n```\n{definition}```')
             await ctx.send(embed=embed_urban)
 
-    @commands.command()
+    @commands.command(name='reverse', aliases=['переверни', 'реверс'])
     async def reverse(self, ctx, *, text: str):
         t_rev = text[::-1].replace("@", "@\u200B").replace("&", "&\u200B")
         embed_reversion = discord.Embed(
@@ -104,16 +106,16 @@ class Info(commands.Cog):
         embed_reversion.add_field(name='Reverse 🔁', value=t_rev)
         await ctx.send(embed=embed_reversion)
 
-    @commands.command()
+    @commands.command(name='пароль', aliases=['password'])
     async def password(self, ctx, nbytes: int = 18):
-        if nbytes not in range(3, 1401):
-            return await ctx.send("I only accept any numbers between 3-1400")
+        if nbytes not in range(3, 401):
+            return await ctx.send("Я принимаю значения между 3-400")
         if hasattr(ctx, 'guild') and ctx.guild is not None:
-            await ctx.send(f"Sending you a private message with your random generated password **{ctx.author.name}**")
+            await ctx.send(f"Отправляю твой пароль тебе в личные сообщения ;) **{ctx.author.name}**")
         embed_password = discord.Embed(
             color=discord.Colour.dark_purple()
         )
-        embed_password.add_field(name='Password generation :lock: ', value=f"``Here is your password:``\n{secrets.token_urlsafe(nbytes)}")
+        embed_password.add_field(name='Пароль :lock: ', value=f"``Ваш пароль:``\n{secrets.token_urlsafe(nbytes)}")
         await ctx.author.send(embed=embed_password)
 
     @commands.command()
@@ -129,7 +131,7 @@ class Info(commands.Cog):
 
         inputText = urllib.parse.quote(' '.join(args.input))
         if len(inputText) > 500:
-            return await ctx.send(f"**{ctx.author.name}**, the Supreme API is limited to 500 characters, sorry.")
+            return await ctx.send(f"**{ctx.author.name}**, Лимит это 500 символов,  простите.")
 
         darkorlight = ""
         if args.dark:
@@ -337,6 +339,113 @@ class Info(commands.Cog):
             await self.encryptout(ctx, "ASCII85 -> Text", base64.a85decode(input.encode('UTF-8')))
         except Exception:
             await ctx.send("Invalid ASCII85...")
+
+    @commands.command(name='say', help=' bot will say that u say to say')
+    async def say(self, ctx, *, message: str):
+        author = ctx.message.author
+        await ctx.channel.purge(limit=1)
+        embed_say = discord.Embed(
+            color=discord.Colour.dark_purple()
+        )
+        embed_say.add_field(name='Тет', value=message)
+        embed_say.set_footer(text=f'запросил {author.name}')
+        await ctx.send(embed=embed_say)
+
+    @commands.command(name='ping', aliases=['пинг'], help=' - shows my ping')
+    async def ping(self, ctx):
+        embedping = discord.Embed(
+            color=discord.Colour.dark_purple()
+        )
+        embedping.add_field(name='Задержка',
+                            value=f'Понг!Задержка ровно в {round(self.client.latency * 1000)}ms {random.choice(msgend)}')
+        await ctx.send(embed=embedping)
+
+    @commands.command(help=' - test command')
+    async def test(self, ctx):
+        await ctx.send(
+            "1234567890ё-=йцукенгшщзхъфывапролдэячсмитьбю.`123456790-=qwertyuiop[]asdfghjkl;'zxcvbnm,./?.!@№#$;%^:&?*("
+            ")_-+=\/|")
+
+    @commands.command(name='avatar', help='sends avatar image')
+    async def avatar(self, ctx, member: discord.Member):
+        author = ctx.message.author
+        embedavatar = discord.Embed(
+            color=discord.Colour.dark_purple(), timestamp=ctx.message.created_at
+        )
+        embedavatar.set_image(url='{}'.format(member.avatar_url))
+        embedavatar.add_field(name=f'Аватарка {member.display_name}', value=f'запросил {author.mention}')
+        await ctx.send(embed=embedavatar)
+
+    @commands.command(name='8шар', aliases=['8ball', '8ш'], help='ваш вопрос - вы получаете магический ответ от шара')
+    async def ball8ru(self, ctx, question):
+        embedball8 = discord.Embed(
+            color=discord.Colour.dark_purple()
+        )
+        responses = ["Это точно.",
+                     "Да, это так.",
+                     "Без сомнений.",
+                     "Да - точно.",
+                     "Можешь быть уверен в этом.",
+                     "Как мне кажется...Да.",
+                     "Вообщем-то.... Угу.",
+                     "НЕ, НЕ, НЕ, НЕ.",
+                     "Ага.",
+                     "Звёзды говорят - да.",
+                     "Точно - нет.",
+                     "Не знаю.",
+                     "Тебе лучше не знать это.",
+                     "Не могу сказать сейчас точно.",
+                     "Спросите попозже.",
+                     "Даже не рассчитывай на ответ на этот вопрос.",
+                     "Мне надо подумать над ответом.",
+                     "Мой ответ - нет.",
+                     "Мои тайные источники говорят - нет.",
+                     "Врятли.",
+                     "Сомневаюсь."]
+        embedball8.add_field(name='Шар Предсказаний', value=' :8ball:  ', inline=False)
+        embedball8.add_field(name='Предсказание', value=f'{random.choice(responses)} {random.choice(msgend)}')
+        embedball8.set_image(url='https://static.zerochan.net/Wizard.Cookie.full.2415740.jpg')
+        await ctx.send(embed=embedball8)
+
+    @commands.command(name='github')
+    async def github(self, ctx):
+        embed = discord.Embed(color=discord.Colour.dark_purple(), timestamp=ctx.message.created_at)
+
+        embed.set_author(name=f'Shiro ♣', icon_url=self.client.user.avatar_url)
+
+        embed.add_field(name='Link', value=f"https://github.com/Clonexy700/DiscordShiro")
+
+        await ctx.send(embed=embed)
+
+    @commands.command(name='dice', help='number of dice  number of sides - Simulates rolling dice.')
+    async def roll(self, ctx, number_of_sides: int = None, number_of_dice: int = None):
+        number_of_dice = 1 if not number_of_dice else number_of_dice
+        number_of_sides = 6 if not number_of_sides else number_of_sides
+        embeddice = discord.Embed(
+            color=discord.Colour.dark_purple()
+        )
+        dice = [
+            str(random.choice(range(1, number_of_sides + 1)))
+            for _ in range(number_of_dice)
+        ]
+        embeddice.add_field(name=':game_die: Dice', value=', '.join(dice) + f' <-- Results {random.choice(msgend)}')
+        embeddice.set_image(url='https://media1.giphy.com/media/3ohjUS2N88LGAjLypO/giphy.gif')
+        await ctx.send(embed=embeddice)
+
+    @commands.command()
+    async def servers(self, ctx):
+        guilds = list(self.client.guilds)
+        await ctx.send(f"Connected on {str(len(guilds))} servers:")
+        await ctx.send('\n'.join(guild.name for guild in guilds))
+
+    @commands.command(name='google')
+    async def google(self, ctx, *, search: str):
+        embed = discord.Embed(
+            color=discord.Colour.dark_purple()
+        )
+        embed.add_field(name='Google',
+                        value=f"[Клик \"{search}\"](https://www.google.com/search?q={search.replace(' ', '+')})")
+        await ctx.send(embed=embed)
 
 
 

@@ -6,20 +6,23 @@ from discord.ext import commands
 
 msgend = [":spades:", ":clubs:", ":diamonds:", ":hearts:", ":fleur_de_lis:", ":black_heart:"]
 
+
 class Emotions(commands.Cog):
 
     def __init__(self, client):
         self.bot = client
 
-    @commands.command(pass_context=True)
+    @commands.command(pass_context=True, aliases=['цем', 'тьмок', 'поцеловать', 'цом'])
     async def kiss(self, ctx, member: discord.Member):
         author = ctx.message.author
         member = ctx.author if not member else member
         embedkiss = discord.Embed(
             colour=discord.Colour.dark_purple()
         )
-        kissphrases = ["is kissing ",
-                       "'s lips touch lips of "]
+        kissphrases = [f"{author.mention} нежно поцеловал {member.mention} ",
+                       f"Губки {author.mention} соприкасаются с губками {member.mention}",
+                       f"{author.mention} целует {member.mention}",
+                       ]
         kissgifs = ["https://media1.tenor.com/images/896519dafbd82b9b924b575e3076708d/tenor.gif?itemid=8811697",
                     "https://media1.tenor.com/images/7fd98defeb5fd901afe6ace0dffce96e/tenor.gif?itemid=9670722",
                     "https://media1.tenor.com/images/78095c007974aceb72b91aeb7ee54a71/tenor.gif?itemid=5095865",
@@ -42,12 +45,12 @@ class Emotions(commands.Cog):
                     "https://cdn.discordapp.com/attachments/621005423335702528/652822580310310924/JPEG_20190513_121707.jpg",
                     "https://cdn.discordapp.com/attachments/621005423335702528/652822932627652619/76_pLn7qnwk.jpg"
                     "https://cdn.discordapp.com/attachments/627524428447612949/655354838716121088/IwStTn6.gif"]
-        embedkiss.add_field(name='Kiss :kissing_heart:',
-                            value=f'{author.mention} {random.choice(kissphrases)} {member.mention} {random.choice(msgend)}')
+        embedkiss.add_field(name='Поцелуй :kissing_heart:',
+                            value=f'{random.choice(kissphrases)} {random.choice(msgend)}')
         embedkiss.set_image(url=random.choice(kissgifs))
         await ctx.send(embed=embedkiss)
 
-    @commands.command(name='idk', help=' emotion i donno')
+    @commands.command(name='idk', aliases=['хз', 'Хз', 'незнаю', 'не знаю'], help=' emotion i donno')
     async def idk(self, ctx):
         author = ctx.message.author
         embedidk = discord.Embed(
@@ -61,12 +64,12 @@ class Emotions(commands.Cog):
                    "https://media1.tenor.com/images/aea2b3b7a199c1d5de88f71e7f5a3a95/tenor.gif?itemid=15453847",
                    "https://2static1.fjcdn.com/thumbnails/comments/Idk+lol+i+was+just+posting+smug+anime+faces+_5afa7b8aa9d5b256369566074fb8b8b1.jpg",
                    "https://media1.tenor.com/images/ce441e4f0e6f115e9eb1b321955c1b80/tenor.gif?itemid=5094560"]
-        embedidk.add_field(name=" :grey_question: I don't know :grey_question: ",
-                           value=f"{author.mention} doesn't know that to do and say in this situation {random.choice(msgend)}")
+        embedidk.add_field(name=" :grey_question: Не знаю :grey_question: ",
+                           value=f"{author.mention} даже не знает, как поступить в данной ситуации {random.choice(msgend)}")
         embedidk.set_image(url=random.choice(idkgifs))
         await ctx.send(embed=embedidk)
 
-    @commands.command(name='shy', help=' emotion shyness')
+    @commands.command(name='shy', aliases=['застенчивость', 'стесняюсь', 'стесняшка'], help=' emotion shyness')
     async def shy(self, ctx):
         author = ctx.message.author
         embedshy = discord.Embed(
@@ -85,12 +88,12 @@ class Emotions(commands.Cog):
                    "https://i.pinimg.com/originals/26/26/58/262658b05b19f7fac41ed8f4a39c79bc.gif",
                    "https://thumbs.gfycat.com/SatisfiedYearlyGonolek-size_restricted.gif",
                    "https://data.whicdn.com/images/121443835/original.gif"]
-        embedshy.add_field(name=" :grey_question: Shy :grey_question: ",
-                           value=f"{author.mention} is shy {random.choice(msgend)}")
+        embedshy.add_field(name=" :grey_question: Застенчивый :grey_question: ",
+                           value=f"{author.mention} стесняется {random.choice(msgend)}")
         embedshy.set_image(url=random.choice(shygifs))
         await ctx.send(embed=embedshy)
 
-    @commands.command(name='thinking', help=' emotion think')
+    @commands.command(name='thinking', aliases=['думаю'], help=' emotion think')
     async def thinking(self, ctx):
         author = ctx.message.author
         embedthink = discord.Embed(
@@ -138,20 +141,21 @@ class Emotions(commands.Cog):
         embedUWU = discord.Embed(
             color=discord.Colour.dark_purple()
         )
-        gifs = ["https://images.discordapp.net/avatars/408785106942164992/7f7a07bfad0ad6a2faaaccd9421e5392.png?size=512",
-                "https://qph.fs.quoracdn.net/main-qimg-5fa76a4166d4805b0367ae855d4ed66a",
-                "https://www.netclipart.com/pp/m/274-2744132_uwu-anime-girl.png",
-                "https://i.ytimg.com/vi/TM6vL7A3wWU/maxresdefault.jpg",
-                "https://instagram.fdtm2-1.fna.fbcdn.net/v/t51.2885-15/e35/60961401_118801332690037_6876302812738518969_n.jpg?_nc_ht=instagram.fdtm2-1.fna.fbcdn.net&_nc_cat=101&oh=a8a6051ff3c9dcf9a36150733fbf5cae&oe=5E710DFF&ig_cache_key=MjA2MzEzMDAyNDMyODU4OTk2Mg%3D%3D.2",
-                "https://media.tenor.com/images/96c10d9434f330ef10159ede5b1ded33/tenor.png",
-                "https://media.tenor.com/images/b25080860e64b852cb697e81fdeb2be3/tenor.gif",
-                "https://media1.tenor.com/images/bee9b19480b6fb3ab9429b130e925f3a/tenor.gif?itemid=14822364 "]
+        gifs = [
+            "https://images.discordapp.net/avatars/408785106942164992/7f7a07bfad0ad6a2faaaccd9421e5392.png?size=512",
+            "https://qph.fs.quoracdn.net/main-qimg-5fa76a4166d4805b0367ae855d4ed66a",
+            "https://www.netclipart.com/pp/m/274-2744132_uwu-anime-girl.png",
+            "https://i.ytimg.com/vi/TM6vL7A3wWU/maxresdefault.jpg",
+            "https://instagram.fdtm2-1.fna.fbcdn.net/v/t51.2885-15/e35/60961401_118801332690037_6876302812738518969_n.jpg?_nc_ht=instagram.fdtm2-1.fna.fbcdn.net&_nc_cat=101&oh=a8a6051ff3c9dcf9a36150733fbf5cae&oe=5E710DFF&ig_cache_key=MjA2MzEzMDAyNDMyODU4OTk2Mg%3D%3D.2",
+            "https://media.tenor.com/images/96c10d9434f330ef10159ede5b1ded33/tenor.png",
+            "https://media.tenor.com/images/b25080860e64b852cb697e81fdeb2be3/tenor.gif",
+            "https://media1.tenor.com/images/bee9b19480b6fb3ab9429b130e925f3a/tenor.gif?itemid=14822364 "]
         embedUWU.add_field(name=" Uwu ",
-                            value=f"{author.mention} UwU ! {random.choice(msgend)}")
+                           value=f"{author.mention} UwU ! {random.choice(msgend)}")
         embedUWU.set_image(url=random.choice(gifs))
         await ctx.send(embed=embedUWU)
 
-    @commands.command(name='spy', help=' emotion spying')
+    @commands.command(name='spy', aliases=['шпионить', 'следить', 'сталкер', 'сталкерить'], help=' emotion spying')
     async def spy(self, ctx, member: discord.Member):
         author = ctx.message.author
         member = ctx.author if not member else member
@@ -165,12 +169,12 @@ class Emotions(commands.Cog):
                    "https://goboiano.com/wp-content/uploads/2017/01/CF468CC8-29E3-4348-9D93-09F63D2DF358-1-1024x669.jpeg",
                    "https://data.whicdn.com/images/323150143/original.jpg",
                    "https://media2.giphy.com/media/BK8hW6YBpnvSU/giphy.gif?cid=790b761117238377d8b62781b4b863a0a52ae796d14ac785&rid=giphy.gif"]
-        embedspy.add_field(name=" Spying :eyes: ",
-                           value=f":detective: {author.mention} is spying {member.mention}{random.choice(msgend)}")
+        embedspy.add_field(name=" Слежка :eyes: ",
+                           value=f":detective: {author.mention} очень внимательно наблюдает за {member.mention}{random.choice(msgend)}")
         embedspy.set_image(url=random.choice(spygifs))
         await ctx.send(embed=embedspy)
 
-    @commands.command(name='yawn', help=' yawn emotion ')
+    @commands.command(name='yawn', aliases=['зевнуть'], help=' yawn emotion ')
     async def yawn(self, ctx):
         author = ctx.message.author
         embedyawn = discord.Embed(
@@ -191,12 +195,12 @@ class Emotions(commands.Cog):
                     "https://media1.tenor.com/images/2e91565f921a15960332c4c23a9b4cda/tenor.gif?itemid=7922566",
                     "https://media1.tenor.com/images/46cff5a47ebcb25816ea41bb0b6f497f/tenor.gif?itemid=13451600",
                     "https://media1.tenor.com/images/36e7cd0c53c1909d0ab2195541529243/tenor.gif?itemid=15643415"]
-        embedyawn.add_field(name=" Yawn :crescent_moon:  ",
-                            value=f"{author.mention} is yawning. Seems it's time to sleep {random.choice(msgend)}")
+        embedyawn.add_field(name=" Зевание :crescent_moon:  ",
+                            value=f"{author.mention} Зевает. Кажется самое время идти спатеньки {random.choice(msgend)}")
         embedyawn.set_image(url=random.choice(yawngifs))
         await ctx.send(embed=embedyawn)
 
-    @commands.command(name='jojo', help=' jojo emotion ')
+    @commands.command(name='jojo', aliases=['жожо', 'JOJO', 'jj', 'JoJo'], help=' jojo emotion ')
     async def jojo(self, ctx):
         embedyawn = discord.Embed(
             color=discord.Colour.dark_purple()
@@ -209,11 +213,11 @@ class Emotions(commands.Cog):
                     "https://thumbs.gfycat.com/BrownThoughtfulGnatcatcher-size_restricted.gif",
                     "https://media1.giphy.com/media/11TN3gkseh4Vos/giphy.gif"]
         embedyawn.add_field(name=" JoJo ",
-                            value=f"JoJo time! {random.choice(msgend)}")
+                            value=f"Время JoJo! {random.choice(msgend)}")
         embedyawn.set_image(url=random.choice(yawngifs))
         await ctx.send(embed=embedyawn)
 
-    @commands.command(name='run')
+    @commands.command(name='run', aliases=['бежать', 'побег', 'бежим'])
     async def run(self, ctx):
         author = ctx.message.author
         embedrun = discord.Embed(
@@ -241,7 +245,7 @@ class Emotions(commands.Cog):
         embedrun.set_image(url=random.choice(rungifs))
         await ctx.send(embed=embedrun)
 
-    @commands.command(name='scared', help=' emotion when u scare')
+    @commands.command(name='scared', aliases=['испуг'], help=' emotion when u scare')
     async def scared(self, ctx):
         author = ctx.message.author
         embedscared = discord.Embed(
@@ -269,12 +273,12 @@ class Emotions(commands.Cog):
                       "https://media1.tenor.com/images/5f20591b4ce8fafc80bed87df34187b9/tenor.gif?itemid=15411739",
                       "https://media1.tenor.com/images/3f1e2e008b0cf3a0ffd77164fbd9bd9b/tenor.gif?itemid=5945193",
                       "https://media1.tenor.com/images/987466f3cdc9df617fee75e7077f59e7/tenor.gif?itemid=12942769"]
-        embedscared.add_field(name='Scared :cold_sweat: ',
-                              value=f'{author.mention} is very scared now {random.choice(msgend)}')
+        embedscared.add_field(name='Испуг :cold_sweat: ',
+                              value=f'{author.mention} очень сейчас напуган {random.choice(msgend)}')
         embedscared.set_image(url=random.choice(scaredgifs))
         await ctx.send(embed=embedscared)
 
-    @commands.command(name='yandere', help=' - ')
+    @commands.command(name='yandere', aliases=['яндере'], help=' - ')
     async def yandere(self, ctx):
         author = ctx.message.author
         embedyandere = discord.Embed(
@@ -297,12 +301,12 @@ class Emotions(commands.Cog):
                        "https://media1.tenor.com/images/52c4d55c27725df1b0a35178ad7cbc08/tenor.gif?itemid=10166732"
                        "https://media.tenor.com/images/82b74068ad8e9be8c3a6678b11259c6a/tenor.gif"]
 
-        embedyandere.add_field(name='Yandere mode :smiling_imp: ',
-                               value=f'{author.mention} going in yandere mode. Run!? {random.choice(msgend)}')
+        embedyandere.add_field(name='Режим яндере :smiling_imp: ',
+                               value=f'{author.mention} уже в режиме яндере и готовится кого-то кромсать. Бежим!? {random.choice(msgend)}')
         embedyandere.set_image(url=random.choice(yanderegifs))
         await ctx.send(embed=embedyandere)
 
-    @commands.command(name='disgust', help=' u did something disgusting ')
+    @commands.command(name='disgust', aliases=['отврат', 'отвращение', 'отвратительно', 'ужасно', 'фуу'], help=' u did something disgusting ')
     async def disgust(self, ctx):
         author = ctx.message.author
         embeddisg = discord.Embed(
@@ -315,12 +319,12 @@ class Emotions(commands.Cog):
                        "https://media1.tenor.com/images/cca274cddfbf0890d58838bab680f30b/tenor.gif?itemid=11743477",
                        "https://media1.tenor.com/images/65de4f32280f2fb18577621fc9b7686c/tenor.gif?itemid=10880410"]
 
-        embeddisg.add_field(name='Disgusting :unamused:  ',
-                            value=f'{author.mention} is disgusted  {random.choice(msgend)}')
+        embeddisg.add_field(name='Фу :unamused:  ',
+                            value=f'{author.mention} отвратительно !  {random.choice(msgend)}')
         embeddisg.set_image(url=random.choice(disgustgifs))
         await ctx.send(embed=embeddisg)
 
-    @commands.command(name='f', help=' sends random pay respects')
+    @commands.command(name='f', aliases=['F', 'эф', 'ф'], help=' sends random pay respects')
     async def f(self, ctx):
         author = ctx.message.author
         emberf = discord.Embed(
@@ -344,7 +348,7 @@ class Emotions(commands.Cog):
                        "https://www.meme-arsenal.com/memes/1081ae939a5ca6565cb42b1f83203e02.jpg",
                        "http://chpic.su/_data/stickers/f/FforRespect/FforRespect_013.webp",
                        "https://avatars.mds.yandex.net/get-zen_doc/230865/pub_5c392d68df53e700aa302e8b_5c392e1404bcd000ab92cf35/scale_1200"]
-        emberf.add_field(name='F', value=f'{author.mention}  is paying respects! F ! {random.choice(msgend)}')
+        emberf.add_field(name='F', value=f'{author.mention}  Отдаёт уважение! F ! {random.choice(msgend)}')
         emberf.set_image(url=random.choice(respectgifs))
         await ctx.send(embed=emberf)
 
@@ -376,7 +380,7 @@ class Emotions(commands.Cog):
         emberf.set_image(url=random.choice(respectgifs))
         await ctx.send(embed=emberf)
 
-    @commands.command(name='lewd', help=' sends random lewd emotion gif')
+    @commands.command(name='lewd', aliases=['разврат'], help=' sends random lewd emotion gif')
     async def lewd(self, ctx):
         author = ctx.message.author
         emberlewd = discord.Embed(
@@ -398,11 +402,12 @@ class Emotions(commands.Cog):
                     "https://media1.tenor.com/images/e533b686983c8a8cad7b8da869337edf/tenor.gif?itemid=13706039",
                     "https://cdn.discordapp.com/attachments/636850117995003906/637900295548174347/AL38.gif",
                     "https://media1.tenor.com/images/c011cbfcd53151ea1ef4d5a2cd03314e/tenor.gif?itemid=7556269"]
-        emberlewd.add_field(name='Lewd :heart:', value=f'{author.mention} is going lewd now. {random.choice(msgend)}')
+        emberlewd.add_field(name='Разврат :heart:', value=f'{author.mention} хочет сделать что-то развратное прямо '
+                                                          f'сейчас {random.choice(msgend)}')
         emberlewd.set_image(url=random.choice(lewdgifs))
         await ctx.send(embed=emberlewd)
 
-    @commands.command(name='tickle', help='sends random tickle emotion gif')
+    @commands.command(name='tickle', aliases=['щекотать'], help='sends random tickle emotion gif')
     async def tickle(self, ctx, member: discord.Member):
         author = ctx.message.author
         member = ctx.author if not member else member
@@ -414,12 +419,12 @@ class Emotions(commands.Cog):
                       "https://media1.tenor.com/images/fea79fed0168efcaf1ddfb14d8af1a6d/tenor.gif?itemid=7283507",
                       "https://media1.tenor.com/images/fcbded4ce66ab01317ee009a1aa44404/tenor.gif?itemid=11920137",
                       "https://media1.tenor.com/images/f43da23b4ed0938ce362b0374b88e42c/tenor.gif?itemid=8054679"]
-        embertickle.add_field(name='Tickle',
-                              value=f'{author.mention} is tickling {member.mention} {random.choice(msgend)}')
+        embertickle.add_field(name='Щекотка',
+                              value=f'{author.mention} щекочет {member.mention} {random.choice(msgend)}')
         embertickle.set_image(url=random.choice(ticklegifs))
         await ctx.send(embed=embertickle)
 
-    @commands.command(name='dance', help='sends random dancing emotion gif')
+    @commands.command(name='dance', aliases=['танцевать', 'танец'], help='sends random dancing emotion gif')
     async def dance(self, ctx):
         author = ctx.message.author
         embeddance = discord.Embed(
@@ -439,11 +444,11 @@ class Emotions(commands.Cog):
                      "https://media1.tenor.com/images/078d0df8e8fc0d28533b647326bf8f3d/tenor.gif?itemid=13706721",
                      "https://media1.tenor.com/images/d250c06c34f6961087a83c6fd79d0711/tenor.gif?itemid=4718235",
                      "https://media1.tenor.com/images/366c9d8296b3ee833ba9ce7e440260f8/tenor.gif?itemid=9302339"]
-        embeddance.add_field(name='Dance', value=f'{author.mention} is dancing now! {random.choice(msgend)}')
+        embeddance.add_field(name='Танец', value=f'{author.mention} Танцует прямо! {random.choice(msgend)}')
         embeddance.set_image(url=random.choice(dancegifs))
         await ctx.send(embed=embeddance)
 
-    @commands.command(name='facepalm', help='sends random facepalm emotion gif')
+    @commands.command(name='facepalm', aliases=['рукалицо'], help='sends random facepalm emotion gif')
     async def facepalm(self, ctx):
         author = ctx.message.author
         emberfacepalm = discord.Embed(
@@ -461,13 +466,13 @@ class Emotions(commands.Cog):
                         "https://media1.tenor.com/images/375754f9ccdf8ac94146381c06755c09/tenor.gif?itemid=5015299",
                         "https://media1.tenor.com/images/a8d8b605d44eb2441d118f2d0bb976bd/tenor.gif?itemid=14865623",
                         "https://media1.tenor.com/images/5e7f44432181df2ba18f27b9f078545f/tenor.gif?itemid=5897489"]
-        emberfacepalm.add_field(name='Facepalm',
-                                value=f'{author.mention} no comment... Facepalm... {random.choice(msgend)}')
+        emberfacepalm.add_field(name='Рукалицо',
+                                value=f'{author.mention} без комментариев...... {random.choice(msgend)}')
         emberfacepalm.set_image(url=random.choice(facepalmgifs))
         await ctx.send(embed=emberfacepalm)
 
-    @commands.command(name='poke', help=' give you chance to poke some1')
-    async def wtfru(self, ctx, member: discord.Member):
+    @commands.command(name='poke', aliases=['тык'], help=' give you chance to poke some1')
+    async def poke(self, ctx, member: discord.Member):
         author = ctx.message.author
         member = ctx.author if not member else member
         embedpoke = discord.Embed(
@@ -490,12 +495,12 @@ class Emotions(commands.Cog):
                     "https://media1.tenor.com/images/514efe749cb611eb382713596e3427d8/tenor.gif?itemid=13054528",
                     "https://media1.tenor.com/images/d9b55173939b863da320ddba91e13b91/tenor.gif?itemid=15148498",
                     "https://media1.tenor.com/images/2b55eb1befce3e843dec7e8feebf274b/tenor.gif?itemid=10168199"]
-        embedpoke.add_field(name='Poke :point_up_2: ',
-                            value=f'{author.mention} is poking {member.mention} {random.choice(msgend)}')
+        embedpoke.add_field(name='Тык :point_up_2: ',
+                            value=f'{author.mention} тыкает в {member.mention} {random.choice(msgend)}')
         embedpoke.set_image(url=random.choice(pokegifs))
         await ctx.send(embed=embedpoke)
 
-    @commands.command(name='hug', help=' sends random hugs emotion gif')
+    @commands.command(name='hug', aliases=['Обнять', 'обнять', 'обнимашки'], help=' sends random hugs emotion gif')
     async def hug(self, ctx, member: discord.Member):
         author = ctx.message.author
         member = ctx.author if not member else member
@@ -532,7 +537,8 @@ class Emotions(commands.Cog):
                    "https://cdn.discordapp.com/attachments/624296774747553808/639093222844399632/22.gif",
                    "https://cdn.discordapp.com/attachments/626362221957742602/639754461044015104/rkIK_u7Pb.gif",
                    "https://cdn.discordapp.com/attachments/621005423335702528/652823412518944791/3ZRdtZ3Ykjg.jpg"]
-        emberhug.add_field(name='Hug', value=f'{author.mention} is hugging {member.mention} {random.choice(msgend)}')
+        emberhug.add_field(name='Объятия',
+                           value=f'{author.mention}, обнимает {member.mention} {random.choice(msgend)}')
         emberhug.set_image(url=random.choice(huggifs))
         await ctx.send(embed=emberhug)
 
@@ -565,7 +571,8 @@ class Emotions(commands.Cog):
         embedsmug.set_image(url=random.choice(smuggifs))
         await ctx.send(embed=embedsmug)
 
-    @commands.command(name='wink', help=' sends random wink emotion gif')
+    @commands.command(name='wink', aliases=['подмигнуть', 'мигнуть', 'подмигивать'],
+                      help=' sends random wink emotion gif')
     async def wink(self, ctx):
         author = ctx.message.author
         embedwink = discord.Embed(
@@ -595,11 +602,11 @@ class Emotions(commands.Cog):
                     "https://media1.tenor.com/images/c684461fdac1c40a4d5d2175ba2d47b3/tenor.gif?itemid=14065050",
                     "https://media1.tenor.com/images/6215f430abae2c62cb197ef9fd154699/tenor.gif?itemid=9441397",
                     "https://media1.tenor.com/images/26268ba4d1f70e63c8252ef1c944fd1c/tenor.gif?itemid=14483849"]
-        embedwink.add_field(name='Wink :wink:', value=f'{author.mention} is winking now {random.choice(msgend)}')
+        embedwink.add_field(name='Подмигивание :wink:', value=f'{author.mention} подмигнул {random.choice(msgend)}')
         embedwink.set_image(url=random.choice(winkgifs))
         await ctx.send(embed=embedwink)
 
-    @commands.command(name='pat', help=' sends random pat emotion gif. PAT THE LOLI!')
+    @commands.command(name='pat', aliases=['гладить', 'погладить'], help=' sends random pat emotion gif. PAT THE LOLI!')
     async def pat(self, ctx, member: discord.Member):
         author = ctx.message.author
         member = ctx.author if not member else member
@@ -630,31 +637,12 @@ class Emotions(commands.Cog):
                    "https://media1.tenor.com/images/ebd15359a3ae53d50a35055d79d325c9/tenor.gif?itemid=12018845",
                    "https://media1.tenor.com/images/2cf1704769d0227c69ebc4b6c85e274b/tenor.gif?itemid=10468802",
                    "https://media1.tenor.com/images/220babfd5f8b629cc16399497ed9dd96/tenor.gif?itemid=6130861"]
-        embedpat.add_field(name='Pat', value=f'{author.mention} is patting {member.mention} {random.choice(msgend)}')
+        embedpat.add_field(name='Поглаживание',
+                           value=f'{author.mention} нежно поглаживает {member.mention} {random.choice(msgend)}')
         embedpat.set_image(url=random.choice(patgifs))
         await ctx.send(embed=embedpat)
 
-    @commands.command(name='wtf', help=' sends random surprised emotion gif')
-    async def wtf(self, ctx):
-        author = ctx.message.author
-        embedwtf = discord.Embed(
-            color=discord.Colour.dark_purple()
-        )
-        wtfgifs = ["https://media.tenor.com/images/9ef9320a887d7ed45bf0b4dd00c91965/tenor.gif",
-                   "https://media1.tenor.com/images/895fc6fe1dd915ded9cb85dd45a8ab0a/tenor.gif?itemid=14126080",
-                   "https://media1.tenor.com/images/8728d889525dbf62c8c8c683b79077ff/tenor.gif?itemid=5109314",
-                   "https://media1.tenor.com/images/2b3588720ac648c63349d727427dca48/tenor.gif?itemid=13058275",
-                   "https://media1.tenor.com/images/85bc5b32ce4bee0ec93fa40c6a73db52/tenor.gif?itemid=10137967",
-                   "https://media1.tenor.com/images/d21c1e645a4a754d9306ff72e8ccf735/tenor.gif?itemid=5563707",
-                   "https://media1.tenor.com/images/435820fd4dc44c90ba5da15526ef913c/tenor.gif?itemid=8346464",
-                   "https://media1.tenor.com/images/c47064848655a87b40ecf836b662daa6/tenor.gif?itemid=12342170",
-                   "https://media1.tenor.com/images/9c391db760d747be14742be2cb6ab64f/tenor.gif?itemid=15198304",
-                   "https://media1.tenor.com/images/bab858e36ca9203b7575a0656a925874/tenor.gif?itemid=15052547"]
-        embedwtf.add_field(name='Wtf? :scream:', value=f'{author.mention}  surprised {random.choice(msgend)}')
-        embedwtf.set_image(url=random.choice(wtfgifs))
-        await ctx.send(embed=embedwtf)
-
-    @commands.command(name='nyan', help=' sends random nyan emotion gif')
+    @commands.command(name='nyan', aliases=['ня'], help=' sends random nyan emotion gif')
     async def nyan(self, ctx):
         author = ctx.message.author
         embednyan = discord.Embed(
@@ -669,11 +657,12 @@ class Emotions(commands.Cog):
                     "https://media1.tenor.com/images/b5397d5803883e7d4a4b355d068a7375/tenor.gif?itemid=14223397",
                     "https://media1.tenor.com/images/1fc08d836800698d3e936308ce0c08f7/tenor.gif?itemid=5076489",
                     "https://media1.tenor.com/images/6372eb4432bb604cdcf4cd228206d0d7/tenor.gif?itemid=14770476"]
-        embednyan.add_field(name='Nya :cat:', value=f' Nya! {author.mention} is a cat now! {random.choice(msgend)}')
+        embednyan.add_field(name='Ня :cat:',
+                            value=f' Мяу! {author.mention} теперь очень похож(а) на кошку! {random.choice(msgend)}')
         embednyan.set_image(url=random.choice(nyangifs))
         await ctx.send(embed=embednyan)
 
-    @commands.command(name='handhold', help=' sends random handhold emotion gif')
+    @commands.command(name='handhold', aliases=['Бр', 'бр'], help=' sends random handhold emotion gif')
     async def handhold(self, ctx, member: discord.Member):
         member = ctx.author if not member else member
         author = ctx.message.author
@@ -686,12 +675,12 @@ class Emotions(commands.Cog):
                         "https://media1.tenor.com/images/890c34d3b8a85bf1972c0a73dbd56ea8/tenor.gif?itemid=7384775",
                         "https://media1.tenor.com/images/9e375f33e538a944072598ecca5c2ec3/tenor.gif?itemid=14709525",
                         "https://media1.tenor.com/images/f5f58ab712a3b1015c7d034adcdd1ca1/tenor.gif?itemid=4828319"]
-        embedhandhold.add_field(name='Handholding',
-                                value=f'{author.mention} is holding hand of {member.mention} {random.choice(msgend)}')
+        embedhandhold.add_field(name='Держимся за ручки',
+                                value=f'{author.mention}  держит за руки {member.mention} {random.choice(msgend)}')
         embedhandhold.set_image(url=random.choice(handholdgifs))
         await ctx.send(embed=embedhandhold)
 
-    @commands.command(name='blush', help=' sends random blush emotion gif')
+    @commands.command(name='blush', aliases=['смущение'], help=' sends random blush emotion gif')
     async def blush(self, ctx):
         author = ctx.message.author
         embedblush = discord.Embed(
@@ -721,17 +710,17 @@ class Emotions(commands.Cog):
                      "https://media1.tenor.com/images/dd96da2dd884e3d3c684633914d99a14/tenor.gif?itemid=5674419",
                      "https://media1.tenor.com/images/a3376886916bada6736bcc6435d6d279/tenor.gif?itemid=14047158",
                      "https://media1.tenor.com/images/8f76f034ccc458bd09675c0380f59cb7/tenor.gif?itemid=5634589"]
-        embedblush.add_field(name='Blush :blush:', value=f'{author.mention} is blushing now {random.choice(msgend)}')
+        embedblush.add_field(name='Смущение :blush:', value=f'{author.mention} очень смущен(а) {random.choice(msgend)}')
         embedblush.set_image(url=random.choice(blushgifs))
         await ctx.send(embed=embedblush)
 
-    @commands.command(name='punch', help=' sends random punch emotion gif')
+    @commands.command(name='punch', aliases=['ударить', 'пиздануть', 'удар'], help=' sends random punch emotion gif')
     async def punch(self, ctx, member: discord.Member):
         author = ctx.message.author
         member = ctx.author if not member else member
-        punchphrases = [" punch very hardly ",
-                        " kicking very hardly",
-                        " is punching "]
+        punchphrases = [" совсей силы ударяет ",
+                        " хорошенько ударил ",
+                        " зарядил по лицу "]
 
         embedpunch = discord.Embed(
             color=discord.Colour.dark_purple()
@@ -761,7 +750,7 @@ class Emotions(commands.Cog):
         embedpunch.set_image(url=random.choice(punchgifs))
         await ctx.send(embed=embedpunch)
 
-    @commands.command(name='cry', help=' sends random crying emotion gif')
+    @commands.command(name='cry', aliases=['плак', 'плакать'], help=' sends random crying emotion gif')
     async def cry(self, ctx):
         author = ctx.message.author
         embedcry = discord.Embed(
@@ -792,12 +781,12 @@ class Emotions(commands.Cog):
                    "https://cdn.discordapp.com/attachments/621005423335702528/640101063839580178/0caba0318aa667572c0ae30f34ecf8b62896aee5_hq.gif",
                    "https://media1.tenor.com/images/b0a1fe4f451dd918f3961e23f5abad30/tenor.gif?itemid=15391370",
                    "https://media1.tenor.com/images/59ce331b098f5ff48a6a628530cea549/tenor.gif?itemid=13241912"]
-        embedcry.add_field(name='Cry :sob:',
-                           value=f'{author.mention} is crying now. Hug him anyone, please!{random.choice(msgend)}')
+        embedcry.add_field(name='Слёзы :sob:',
+                           value=f'{author.mention} сейчас плачет. Обнимашек, пожалуйста!{random.choice(msgend)}')
         embedcry.set_image(url=random.choice(crygifs))
         await ctx.send(embed=embedcry)
 
-    @commands.command(name='offend', help=' sends random offend emotion gif')
+    @commands.command(name='offend', aliases=['обидеться', 'обижен', 'обида'], help=' sends random offend emotion gif')
     async def offend(self, ctx):
         author = ctx.message.author
         embedoffend = discord.Embed(
@@ -808,11 +797,11 @@ class Emotions(commands.Cog):
                       "https://cdn.discordapp.com/attachments/624296774747553808/637929458103484416/offend4.gif",
                       "https://cdn.discordapp.com/attachments/624296774747553808/637929435055652874/offend3.gif",
                       "https://cdn.discordapp.com/attachments/621005423335702528/652823784616624148/p83C3Xsw_AA.jpg"]
-        embedoffend.add_field(name='Offend', value=f'{author.mention} is offended now {random.choice(msgend)}')
+        embedoffend.add_field(name='Обидка', value=f'{author.mention} сейчас обижен(а) {random.choice(msgend)}')
         embedoffend.set_image(url=random.choice(offendgifs))
         await ctx.send(embed=embedoffend)
 
-    @commands.command(name='spank', help=' sends random spank emotion gif')
+    @commands.command(name='spank', aliases=['шлеп', 'шлепнуть'], help=' sends random spank emotion gif')
     async def spank(self, ctx, member: discord.Member):
         author = ctx.message.author
         member = ctx.author if not member else member
@@ -829,12 +818,12 @@ class Emotions(commands.Cog):
                      "https://media1.tenor.com/images/6b3dda2e995a02ad50ae788a16bfbd64/tenor.gif?itemid=12325914",
                      "https://media1.tenor.com/images/31d58e53313dc9bbd6435d824d2a5933/tenor.gif?itemid=11756736"
                      "https://cdn.discordapp.com/attachments/627524428447612949/655356337005527041/MsR2.gif"]
-        embedspank.add_field(name='Spank',
-                             value=f'{author.mention} is spanking {member.mention} {random.choice(msgend)}')
+        embedspank.add_field(name='Шлёп',
+                               value=f'{author.mention} шлепает {member.mention} {random.choice(msgend)}')
         embedspank.set_image(url=random.choice(spankgifs))
         await ctx.send(embed=embedspank)
 
-    @commands.command(name='laugh', help=' sends random laugh emotion gif')
+    @commands.command(name='laugh', aliases=['лол', 'смех'], help=' sends random laugh emotion gif')
     async def laugh(self, ctx):
         author = ctx.message.author
         embedlaugh = discord.Embed(
@@ -858,11 +847,11 @@ class Emotions(commands.Cog):
                      "https://media1.tenor.com/images/faebec11a5be81a95f69d7b38f4b8171/tenor.gif?itemid=14132796",
                      "https://media1.tenor.com/images/b63941fc92c0c4f741596b709883c0bf/tenor.gif?itemid=15150337",
                      "https://media1.tenor.com/images/d47b270c91ee8d97b8499c9c5a864e38/tenor.gif?itemid=14064857"]
-        embedlaugh.add_field(name='Laugh :laughing:', value=f'{author.mention} is laughing now {random.choice(msgend)}')
+        embedlaugh.add_field(name='Смех :laughing:', value=f'{author.mention} сейчас смеется.  Смешно кстати XD {random.choice(msgend)}')
         embedlaugh.set_image(url=random.choice(laughgifs))
         await ctx.send(embed=embedlaugh)
 
-    @commands.command(name='bite', help=' sends random bite emotion gif')
+    @commands.command(name='bite', aliases=['кусь', 'укусить'], help=' sends random bite emotion gif')
     async def biteru(self, ctx, member: discord.Member):
         author = ctx.message.author
         member = ctx.author if not member else member
@@ -878,12 +867,12 @@ class Emotions(commands.Cog):
                     "https://media1.tenor.com/images/2adef5d4fba623aeb4c5b74879107b56/tenor.gif?itemid=5160295",
                     "https://media1.tenor.com/images/69546e40c361a59ce442c4d08e47bb05/tenor.gif?itemid=15157862",
                     "https://media1.tenor.com/images/f78e68053fcaf23a6ba7fbe6b0b6cff2/tenor.gif?itemid=10614631"]
-        embedbite.add_field(name='Bite', value=f'{author.mention} is biting {member.mention} {random.choice(msgend)}')
+        embedbite.add_field(name='Кусь', value=f'{author.mention} нежно покусывает {member.mention} {random.choice(msgend)}')
         embedbite.set_image(url=random.choice(bitegifs))
         await ctx.send(embed=embedbite)
 
-    @commands.command(name='pout', help=' sends random pouting emotion gif')
-    async def offend(self, ctx):
+    @commands.command(name='pout', aliases=['щечки', 'надутьщечки', 'дщ'], help=' sends random pouting emotion gif')
+    async def pout(self, ctx):
         author = ctx.message.author
         embedpout = discord.Embed(
             color=discord.Colour.dark_purple()
@@ -894,11 +883,11 @@ class Emotions(commands.Cog):
                     "https://media.tenor.com/images/abe8bc8b0b76b8ffe6694fa8b8f48853/tenor.gif",
                     "https://media1.tenor.com/images/e15433a7af99094cc98df27802b8948c/tenor.gif?itemid=5688400",
                     "https://media.tenor.com/images/a9a1ee151d114920f6914bd507f8b3c5/tenor.gif"]
-        embedpout.add_field(name='Pouting', value=f'{author.mention} is pouting now {random.choice(msgend)}')
+        embedpout.add_field(name='Щечки', value=f'{author.mention} прямо сейчас надул(а) щечки {random.choice(msgend)}')
         embedpout.set_image(url=random.choice(poutgifs))
         await ctx.send(embed=embedpout)
 
-    @commands.command(name='lick', help=' sends random link emotion gif')
+    @commands.command(name='lick', aliases=['лизь', 'облизать', 'лизнуть'])
     async def lick(self, ctx, member: discord.Member):
         author = ctx.message.author
         member = ctx.author if not member else member
@@ -923,262 +912,9 @@ class Emotions(commands.Cog):
                     "https://media1.tenor.com/images/d702fa41028207c6523b831ec2db9467/tenor.gif?itemid=5990650",
                     "https://media1.tenor.com/images/5ca31fd724f6baca41e366db4258a1e6/tenor.gif?itemid=12141726",
                     "https://cdn.idunetwork.eu.org/images/lick/7.gif"]
-        embedlick.add_field(name='Licking :stuck_out_tongue: ', value=f'{author.mention} is licking {member.mention}')
+        embedlick.add_field(name='Лизание :stuck_out_tongue: ', value=f'{author.mention} облизывает {member.mention}')
         embedlick.set_image(url=random.choice(lickgifs))
         await ctx.send(embed=embedlick)
-
-    @commands.command(name='кусь', help=' эмоция, кусь, кусь, кусь!')
-    async def biteru(self, ctx, member: discord.Member):
-        author = ctx.message.author
-        member = ctx.author if not member else member
-        embedbite = discord.Embed(
-            color=discord.Colour.dark_purple()
-        )
-        biteruphrases = [" делает кусь ",
-                         " очень нежно покусывает ",
-                         " сделал кусь"]
-        bitegifs = ["https://media1.tenor.com/images/d97e4bc853ed48bf83386664956d75ec/tenor.gif?itemid=10364764",
-                    "https://media1.tenor.com/images/6b42070f19e228d7a4ed76d4b35672cd/tenor.gif?itemid=9051585",
-                    "https://media1.tenor.com/images/418a2765b0bf54eb57bab3fde5d83a05/tenor.gif?itemid=12151511",
-                    "https://media1.tenor.com/images/3baeaa0c5ae3a1a4ae9ac2780b2d965d/tenor.gif?itemid=13342683",
-                    "https://media1.tenor.com/images/f3f456723f2f8735d118b43823c837f5/tenor.gif?itemid=14659250",
-                    "https://media1.tenor.com/images/0d192209c8e9bcd9826af63ba72fc584/tenor.gif?itemid=15164408",
-                    "https://media1.tenor.com/images/2adef5d4fba623aeb4c5b74879107b56/tenor.gif?itemid=5160295",
-                    "https://media1.tenor.com/images/69546e40c361a59ce442c4d08e47bb05/tenor.gif?itemid=15157862",
-                    "https://media1.tenor.com/images/f78e68053fcaf23a6ba7fbe6b0b6cff2/tenor.gif?itemid=10614631"]
-        embedbite.add_field(name='Кусь',
-                            value=f'{author.mention} {random.choice(biteruphrases)} {member.mention} {random.choice(msgend)}')
-        embedbite.set_image(url=random.choice(bitegifs))
-        await ctx.send(embed=embedbite)
-
-    @commands.command(name='цем', help=' эмоция, поцелуй')
-    async def kissru(self, ctx, member: discord.Member):
-        embedkiss = discord.Embed(
-            colour=discord.Colour.dark_purple()
-        )
-        author = ctx.message.author
-        member = ctx.author if not member else member
-        kissruphrases = [" целует ",
-                         " делает поцелуй ",
-                         " очень нежно целует "]
-        kissgifs = ["https://media1.tenor.com/images/896519dafbd82b9b924b575e3076708d/tenor.gif?itemid=8811697",
-                    "https://media1.tenor.com/images/7fd98defeb5fd901afe6ace0dffce96e/tenor.gif?itemid=9670722",
-                    "https://media1.tenor.com/images/78095c007974aceb72b91aeb7ee54a71/tenor.gif?itemid=5095865",
-                    "https://media1.tenor.com/images/a390476cc2773898ae75090429fb1d3b/tenor.gif?itemid=12837192",
-                    "https://media1.tenor.com/images/bc5e143ab33084961904240f431ca0b1/tenor.gif?itemid=9838409",
-                    "https://media1.tenor.com/images/e858678426357728038c277598871d6d/tenor.gif?itemid=9903014",
-                    "https://media1.tenor.com/images/a1f7d43752168b3c1dbdfb925bda8a33/tenor.gif?itemid=10356314",
-                    "https://media1.tenor.com/images/8e0e0c3970262b0b4b30ee6d9eb04756/tenor.gif?itemid=12542720",
-                    "https://media1.tenor.com/images/2f23c53755a5c3494a7f54bbcf04d1cc/tenor.gif?itemid=13970544",
-                    "https://media1.tenor.com/images/c4ecd9b75be67ea56d5916c47ee3ad53/tenor.gif?itemid=14375353",
-                    "https://media1.tenor.com/images/d1a11805180742c70339a6bfd7745f8d/tenor.gif?itemid=4883557",
-                    "https://media1.tenor.com/images/6bd9c3ba3c06556935a452f0a3679ccf/tenor.gif?itemid=13387677",
-                    "https://media1.tenor.com/images/04433eb0c31b175ab020cc9c6b94e1c4/tenor.gif?itemid=14686933",
-                    "https://media1.tenor.com/images/d017f04c0383c3c6864d2a2ec414ea3d/tenor.gif?itemid=11293903",
-                    "https://media1.tenor.com/images/ea9a07318bd8400fbfbd658e9f5ecd5d/tenor.gif?itemid=12612515",
-                    "https://media1.tenor.com/images/e76e640bbbd4161345f551bb42e6eb13/tenor.gif?itemid=4829336",
-                    "https://cdn.discordapp.com/attachments/624296774747553808/637901601209712640/kiss_3.gif",
-                    "https://cdn.discordapp.com/attachments/624296774747553808/639093189017600000/21.gif",
-                    "https://cdn.discordapp.com/attachments/624296774747553808/639093469121347595/29.gif",
-                    "https://cdn.discordapp.com/attachments/621005423335702528/652822580310310924/JPEG_20190513_121707.jpg",
-                    "https://cdn.discordapp.com/attachments/621005423335702528/652822932627652619/76_pLn7qnwk.jpg"
-                    "https://cdn.discordapp.com/attachments/627524428447612949/655354838716121088/IwStTn6.gif"]
-        embedkiss.add_field(name='Поцелуй :kissing_heart:',
-                            value=f' <@{author.id}> {random.choice(kissruphrases)} <@{member.id}> {random.choice(msgend)}')
-        embedkiss.set_image(url=f'{random.choice(kissgifs)}')
-        await ctx.send(embed=embedkiss)
-
-    @commands.command(name='обнять', help=' sends random hugs emotion gif')
-    async def hugru(self, ctx, member: discord.Member):
-        author = ctx.message.author
-        member = ctx.author if not member else member
-        emberhugru = discord.Embed(
-            color=discord.Colour.dark_purple()
-        )
-        huggifs = ["https://media1.tenor.com/images/5845f40e535e00e753c7931dd77e4896/tenor.gif?itemid=9920978",
-                   "https://media1.tenor.com/images/6db54c4d6dad5f1f2863d878cfb2d8df/tenor.gif?itemid=7324587",
-                   "https://media1.tenor.com/images/b0de026a12e20137a654b5e2e65e2aed/tenor.gif?itemid=7552093",
-                   "https://media1.tenor.com/images/e58eb2794ff1a12315665c28d5bc3f5e/tenor.gif?itemid=10195705",
-                   "https://media1.tenor.com/images/7db5f172665f5a64c1a5ebe0fd4cfec8/tenor.gif?itemid=9200935",
-                   "https://media1.tenor.com/images/4d89d7f963b41a416ec8a55230dab31b/tenor.gif?itemid=5166500",
-                   "https://media1.tenor.com/images/506aa95bbb0a71351bcaa753eaa2a45c/tenor.gif?itemid=7552075",
-                   "https://media1.tenor.com/images/074d69c5afcc89f3f879ca473e003af2/tenor.gif?itemid=4898650",
-                   "https://media1.tenor.com/images/1069921ddcf38ff722125c8f65401c28/tenor.gif?itemid=11074788",
-                   "https://media1.tenor.com/images/18474dc6afa97cef50ad53cf84e37d08/tenor.gif?itemid=12375072",
-                   "https://media1.tenor.com/images/460c80d4423b0ba75ed9592b05599592/tenor.gif?itemid=5044460",
-                   "https://media1.tenor.com/images/42922e87b3ec288b11f59ba7f3cc6393/tenor.gif?itemid=5634630",
-                   "https://media1.tenor.com/images/44b4b9d5e6b4d806b6bcde2fd28a75ff/tenor.gif?itemid=9383138",
-                   "https://media1.tenor.com/images/45b1dd9eaace572a65a305807cfaec9f/tenor.gif?itemid=6238016",
-                   "https://media1.tenor.com/images/b7487d45af7950bfb3f7027c93aa49b1/tenor.gif?itemid=9882931",
-                   "https://media1.tenor.com/images/79c461726e53ee8f9a5a36521f69d737/tenor.gif?itemid=13221416",
-                   "https://media1.tenor.com/images/49a21e182fcdfb3e96cc9d9421f8ee3f/tenor.gif?itemid=3532079",
-                   "https://media1.tenor.com/images/e9d7da26f8b2adbb8aa99cfd48c58c3e/tenor.gif?itemid=14721541",
-                   "https://media1.tenor.com/images/f2805f274471676c96aff2bc9fbedd70/tenor.gif?itemid=7552077",
-                   "https://media1.tenor.com/images/aeb42019b0409b98aed663f35b613828/tenor.gif?itemid=14108949",
-                   "https://media1.tenor.com/images/09005550fb8642d13e544d2045a409c5/tenor.gif?itemid=7883854",
-                   "https://media1.tenor.com/images/4ebdcd44de0042eb416345a50c3f80c7/tenor.gif?itemid=6155660",
-                   "https://media1.tenor.com/images/1a73e11ad8afd9b13c7f9f9bb5c9a834/tenor.gif?itemid=13366388",
-                   "https://media1.tenor.com/images/daffa3b7992a08767168614178cce7d6/tenor.gif?itemid=15249774",
-                   "https://media1.tenor.com/images/f5df55943b64922b6b16aa63d43243a6/tenor.gif?itemid=9375012",
-                   "https://cdn.discordapp.com/attachments/636850117995003906/637911833205932032/KHdSnNKk7.gif",
-                   "https://cdn.discordapp.com/attachments/636850117995003906/637927282077466645/AL119.gif",
-                   "https://cdn.discordapp.com/attachments/624296774747553808/639093222844399632/22.gif",
-                   "https://cdn.discordapp.com/attachments/626362221957742602/639754461044015104/rkIK_u7Pb.gif",
-                   "https://cdn.discordapp.com/attachments/621005423335702528/652823412518944791/3ZRdtZ3Ykjg.jpg"]
-        emberhugru.add_field(name='Объятия',
-                             value=f'{author.mention}, обнимает {member.mention} {random.choice(msgend)}')
-        emberhugru.set_image(url=random.choice(huggifs))
-        await ctx.send(embed=emberhugru)
-
-    @commands.command(name='ударить', help=' sends random punch emotion gif')
-    async def punchru(self, ctx, member: discord.Member):
-        author = ctx.message.author
-        member = ctx.author if not member else member
-        punchruphrases = [" ударяет со всей силы ",
-                          " ударяет ",
-                          " хорошенько ударяет "]
-        embedpunchru = discord.Embed(
-            color=discord.Colour.dark_purple()
-        )
-        punchgifs = ["https://media1.tenor.com/images/1c986c555ed0b645670596d978c88f6e/tenor.gif?itemid=13142581",
-                     "https://media1.tenor.com/images/31686440e805309d34e94219e4bedac1/tenor.gif?itemid=4790446",
-                     "https://media1.tenor.com/images/d7c30e46a937aaade4d7bc20eb09339b/tenor.gif?itemid=12003970",
-                     "https://media1.tenor.com/images/c621075def6ca41785ef4aaea20cc3a2/tenor.gif?itemid=7679409",
-                     "https://media1.tenor.com/images/6d77cf1fdaa2e7c6a32c370240a7b77c/tenor.gif?itemid=9523306",
-                     "https://media1.tenor.com/images/965fabbfcdc09ee0eb4d697e25509f34/tenor.gif?itemid=7380310 ",
-                     "https://media1.tenor.com/images/745d16a823805edbfe83aa9363c48a87/tenor.gif?itemid=12003981",
-                     "https://media1.tenor.com/images/f03329d8877abfde62b1e056953724f3/tenor.gif?itemid=13785833",
-                     "https://media1.tenor.com/images/7d43687195b86c8ce2411484eb1951fc/tenor.gif?itemid=7922533",
-                     "https://media1.tenor.com/images/6afcfbc435b698fa5ceb2ff019718e6d/tenor.gif?itemid=10480971",
-                     "https://media1.tenor.com/images/b82427b0507d43afb17a6c9ddddfa0a9/tenor.gif?itemid=4903584",
-                     "https://media1.tenor.com/images/995c766275e66c3aa5efd55ab7d8f86a/tenor.gif?itemid=7885164",
-                     "https://media1.tenor.com/images/cf467247b8755bcb943dc535ccfd1830/tenor.gif?itemid=9753290",
-                     "https://media1.tenor.com/images/29ecede6bfa61d6a2fbfb4b63620cdb4/tenor.gif?itemid=14613404",
-                     "https://media1.tenor.com/images/d37431cbc9bd68eca0d700c787bf33d0/tenor.gif?itemid=5521090",
-                     "https://media1.tenor.com/images/d7d52d0592bbc77bd5c629c2132c1b33/tenor.gif?itemid=9409159",
-                     "https://media1.tenor.com/images/313bb02914ddb9262511b790ef4d4c7b/tenor.gif?itemid=7922535",
-                     "https://cdn.discordapp.com/attachments/624296774747553808/639094165732589580/30.gif",
-                     "https://cdn.discordapp.com/attachments/624296774747553808/639094187903680522/31.gif",
-                     "https://memepedia.ru/wp-content/uploads/2019/06/lobanov-mem-shablon.jpg",
-                     "https://pa1.narvii.com/6329/041aa0724fb6e5dbf71681a80b86d5d1add8f8c8_hq.gif"]
-        embedpunchru.add_field(name='Удар :punch:',
-                               value=f'{author.mention} {random.choice(punchruphrases)} {member.mention} {random.choice(msgend)}')
-        embedpunchru.set_image(url=random.choice(punchgifs))
-        await ctx.send(embed=embedpunchru)
-
-    @commands.command(name='лизь', help=' sends random link emotion gif')
-    async def lickru(self, ctx, member: discord.Member):
-        author = ctx.message.author
-        member = ctx.author if not member else member
-        embedlickru = discord.Embed(
-            color=discord.Colour.dark_purple()
-        )
-        lickgifs = ["https://media1.tenor.com/images/f0a7f04a7bc32029cc1273d06b93237f/tenor.gif?itemid=13451464",
-                    "https://media1.tenor.com/images/5f73f2a7b302a3800b3613095f8a5c40/tenor.gif?itemid=10005495",
-                    "https://media1.tenor.com/images/359d9a5038eb688e9d5b25eead83ad3e/tenor.gif?itemid=4854805",
-                    "https://media1.tenor.com/images/5c5828e51733c8ffe1c368f1395a03d0/tenor.gif?itemid=14231351",
-                    "https://media1.tenor.com/images/5c5828e51733c8ffe1c368f1395a03d0/tenor.gif?itemid=14231351",
-                    "https://media1.tenor.com/images/f46762ad38fbfed9e4e46bf7b89497c2/tenor.gif?itemid=12141724",
-                    "https://media1.tenor.com/images/7132e6f39a0e4ada4e33d71056bcde67/tenor.gif?itemid=12858455",
-                    "https://media1.tenor.com/images/6b701503b0e5ea725b0b3fdf6824d390/tenor.gif?itemid=12141727",
-                    "https://media1.tenor.com/images/c4f68fbbec3c96193386e5fcc5429b89/tenor.gif?itemid=13451325",
-                    "https://media1.tenor.com/images/1a2d051f28155db0e4cf175d987cdac2/tenor.gif?itemid=12141721",
-                    "https://media1.tenor.com/images/efd46743771a78e493e66b5d26cd2af1/tenor.gif?itemid=14002773",
-                    "https://media1.tenor.com/images/fc0ef2ba03d82af0cbd6c5815c3c83d5/tenor.gif?itemid=12141725",
-                    "https://media1.tenor.com/images/ec2ca0bf12d7b1a30fea702b59e5a7fa/tenor.gif?itemid=13417195",
-                    "https://media1.tenor.com/images/81769ee6622b5396d1489fb4667fd20a/tenor.gif?itemid=14376074",
-                    "https://media1.tenor.com/images/1925e468ff1ac9efc2100a3d092c54ff/tenor.gif?itemid=4718221",
-                    "https://media1.tenor.com/images/d702fa41028207c6523b831ec2db9467/tenor.gif?itemid=5990650",
-                    "https://media1.tenor.com/images/5ca31fd724f6baca41e366db4258a1e6/tenor.gif?itemid=12141726",
-                    "https://cdn.idunetwork.eu.org/images/lick/7.gif"]
-        embedlickru.add_field(name='Лизание :stuck_out_tongue: ', value=f'{author.mention} лизнул {member.mention}')
-        embedlickru.set_image(url=random.choice(lickgifs))
-        await ctx.send(embed=embedlickru)
-
-    @commands.command(name='шлеп', help=' sends random spank emotion gif')
-    async def spank(self, ctx, member: discord.Member):
-        author = ctx.message.author
-        member = ctx.author if not member else member
-        embedspankru = discord.Embed(
-            color=discord.Colour.dark_purple()
-        )
-        spankgifs = ["https://media1.tenor.com/images/7945b3b2ecf0e7c38bc0fb554e998e35/tenor.gif?itemid=12388311",
-                     "https://media1.tenor.com/images/ef5f040254c2fbf91232088b91fe2341/tenor.gif?itemid=13569259",
-                     "https://media1.tenor.com/images/d0f32f61c2964999b344c6846b30e1d6/tenor.gif?itemid=13665166",
-                     "https://media1.tenor.com/images/27d084ea80cf3f678bb35e0819455d72/tenor.gif?itemid=9772233",
-                     "https://media1.tenor.com/images/39985ebdf8087545cc84359b0e3fa0e7/tenor.gif?itemid=13838799",
-                     "https://media1.tenor.com/images/5529ad77a3627b0b9e27de8753219690/tenor.gif?itemid=7885617",
-                     "https://media1.tenor.com/images/693afd5812160c00a1fa8582de15a83e/tenor.gif?itemid=5458569",
-                     "https://media1.tenor.com/images/6b3dda2e995a02ad50ae788a16bfbd64/tenor.gif?itemid=12325914",
-                     "https://media1.tenor.com/images/31d58e53313dc9bbd6435d824d2a5933/tenor.gif?itemid=11756736"
-                     "https://cdn.discordapp.com/attachments/627524428447612949/655356337005527041/MsR2.gif"]
-        embedspankru.add_field(name='Шлёп',
-                               value=f'{author.mention} шлепает {member.mention} {random.choice(msgend)}')
-        embedspankru.set_image(url=random.choice(spankgifs))
-        await ctx.send(embed=embedspankru)
-
-    @commands.command(name='лол', help=' sends random laugh emotion gif')
-    async def laugh(self, ctx):
-        author = ctx.message.author
-        embedlaugh = discord.Embed(
-            color=discord.Colour.dark_purple()
-        )
-        laughgifs = ["https://media1.tenor.com/images/65d8ed7d9f6121c3747f91f4d16ddc20/tenor.gif?itemid=14080522",
-                     "https://media1.tenor.com/images/ad4804e880c2edcecbb79217b479610a/tenor.gif?itemid=10903422",
-                     "https://media1.tenor.com/images/60752436c762fd710643cffec01f6cbd/tenor.gif?itemid=9051310",
-                     "https://media1.tenor.com/images/ccf51fb7683192a9b909d7c8116cc6da/tenor.gif?itemid=11115623",
-                     "https://media1.tenor.com/images/cec591b860ddf5447dba64008127309b/tenor.gif?itemid=12048187",
-                     "https://media1.tenor.com/images/2775948586d6a24811726ce4dc681d47/tenor.gif?itemid=13786657",
-                     "https://media1.tenor.com/images/c4f2a0b13086d0c4a3b66845c85f9020/tenor.gif?itemid=11987904",
-                     "https://media1.tenor.com/images/6d7008706bd15d1ed1dc47387f02f853/tenor.gif?itemid=10665609",
-                     "https://media1.tenor.com/images/182f3e1d1fc398d0ea99c9433a4f0c65/tenor.gif?itemid=12130183",
-                     "https://media1.tenor.com/images/26df2182fc943676dc6cc51371efc04b/tenor.gif?itemid=8932912",
-                     "https://media1.tenor.com/images/3be8aa0228169cf5748e21eb972ffa1d/tenor.gif?itemid=12252557",
-                     "https://media1.tenor.com/images/2dcfc6694bb1a931c60bb67a6323e40d/tenor.gif?itemid=10067925",
-                     "https://media1.tenor.com/images/f7d0b534e95c24a53b9767b480e76df3/tenor.gif?itemid=11203476",
-                     "https://media1.tenor.com/images/de9deca0d39e158c3d13d42f511d8013/tenor.gif?itemid=14088527",
-                     "https://media1.tenor.com/images/76a775a3b063f589af8c05c26316a1cb/tenor.gif?itemid=10191158",
-                     "https://media1.tenor.com/images/faebec11a5be81a95f69d7b38f4b8171/tenor.gif?itemid=14132796",
-                     "https://media1.tenor.com/images/b63941fc92c0c4f741596b709883c0bf/tenor.gif?itemid=15150337",
-                     "https://media1.tenor.com/images/d47b270c91ee8d97b8499c9c5a864e38/tenor.gif?itemid=14064857",
-                     "https://media1.tenor.com/images/59ce331b098f5ff48a6a628530cea549/tenor.gif?itemid=13241912"]
-        embedlaugh.add_field(name='Смех :laughing:', value=f'{author.mention} смеётся  {random.choice(msgend)}')
-        embedlaugh.set_image(url=random.choice(laughgifs))
-        await ctx.send(embed=embedlaugh)
-
-    @commands.command(name='смущение', help=' sends random blush emotion gif')
-    async def blush(self, ctx):
-        author = ctx.message.author
-        embedblush = discord.Embed(
-            color=discord.Colour.dark_purple()
-        )
-        blushgifs = ["https://media1.tenor.com/images/3ce5d6af434f62cc185590e8f84f4d53/tenor.gif?itemid=8668069",
-                     "https://media1.tenor.com/images/84307582253a96e4552d20e3ecef3a33/tenor.gif?itemid=5531498"
-                     "https://media1.tenor.com/images/a7e87466022015e036c06c3927c251f9/tenor.gif?itemid=8971744",
-                     "https://media1.tenor.com/images/09d75740089598b54342df3641dbbffc/tenor.gif?itemid=5615361",
-                     "https://media1.tenor.com/images/b00fe041997afa8fff0734a1fb8dd2a4/tenor.gif?itemid=13768377",
-                     "https://media1.tenor.com/images/1bb57bb553ea96c150ab167e145f9a66/tenor.gif?itemid=4964136",
-                     "https://media1.tenor.com/images/82b0f0a24e1621510b1216317edd4ba0/tenor.gif?itemid=14119517",
-                     "https://media1.tenor.com/images/b4ebe6c9c4786dd32b51dd346135b625/tenor.gif?itemid=5881549",
-                     "https://media1.tenor.com/images/95d627e71466ebfb2a168a041c96f122/tenor.gif?itemid=13720542",
-                     "https://media1.tenor.com/images/4f270d2727e514056ae63f155ba0cef2/tenor.gif?itemid=13045709",
-                     "https://media1.tenor.com/images/d9b08d9984e694111ba7107c198f85b7/tenor.gif?itemid=5634600",
-                     "https://media1.tenor.com/images/9af8d8afab3b509a97f2440562845682/tenor.gif?itemid=13978385",
-                     "https://media1.tenor.com/images/dc917566da214fa3c4e7ddcc58228db9/tenor.gif?itemid=3554995",
-                     "https://media1.tenor.com/images/fc6b82c2c8c045a0b1e6fc91294292c5/tenor.gif?itemid=6215889",
-                     "https://media1.tenor.com/images/721f47c4e76756bf2f43a3877aa8da2d/tenor.gif?itemid=13159553",
-                     "https://media1.tenor.com/images/620727ea2684887e9ce44e507ac6ce20/tenor.gif?itemid=7511484",
-                     "https://media1.tenor.com/images/5ea40ca0d6544dbf9c0074542810e149/tenor.gif?itemid=14841901",
-                     "https://media1.tenor.com/images/9237c406b776020e897c58123b1ba001/tenor.gif?itemid=12869776",
-                     "https://media1.tenor.com/images/ac2f1f727d4d96a6a7c4fb5ae5a41cf0/tenor.gif?itemid=12297830",
-                     "https://media1.tenor.com/images/cc187b06f246e71b07613e3957d87e00/tenor.gif?itemid=5102126",
-                     "https://media1.tenor.com/images/917f92a579076c08057a0a8cb69bf62d/tenor.gif?itemid=4436427",
-                     "https://media1.tenor.com/images/dd96da2dd884e3d3c684633914d99a14/tenor.gif?itemid=5674419",
-                     "https://media1.tenor.com/images/a3376886916bada6736bcc6435d6d279/tenor.gif?itemid=14047158",
-                     "https://media1.tenor.com/images/8f76f034ccc458bd09675c0380f59cb7/tenor.gif?itemid=5634589"]
-        embedblush.add_field(name='Blush :blush:', value=f'{author.mention} очень смущён {random.choice(msgend)}')
-        embedblush.set_image(url=random.choice(blushgifs))
-        await ctx.send(embed=embedblush)
 
     @commands.command(name='втф', help=' sends random surprised emotion gif')
     async def wtfru(self, ctx):
@@ -1199,87 +935,6 @@ class Emotions(commands.Cog):
         embedwtf.add_field(name='Что!? :scream:', value=f'{author.mention} очень удивлён {random.choice(msgend)}')
         embedwtf.set_image(url=random.choice(wtfgifs))
         await ctx.send(embed=embedwtf)
-
-    @commands.command(name='тык', help=' тык тык тык тык тык тык тык тык тык тык')
-    async def wtfru(self, ctx, member: discord.Member):
-        author = ctx.message.author
-        member = ctx.author if not member else member
-        embedpokeru = discord.Embed(
-            color=discord.Colour.dark_purple()
-        )
-        pokegifs = ["https://media1.tenor.com/images/e8b25e7d069c203ea7f01989f2a0af59/tenor.gif?itemid=12011027",
-                    "https://media1.tenor.com/images/3b9cffb5b30236f678fdccf442006a43/tenor.gif?itemid=7739077",
-                    "https://media1.tenor.com/images/1236e0d70c6ee3ea91d414bcaf9f3aa4/tenor.gif?itemid=5015314",
-                    "https://media1.tenor.com/images/175cc4686c4c67809f48eef44965c845/tenor.gif?itemid=10217135",
-                    "https://media1.tenor.com/images/175cc4686c4c67809f48eef44965c845/tenor.gif?itemid=10217135",
-                    "https://media1.tenor.com/images/8fe23ec8e2c5e44964e5c11983ff6f41/tenor.gif?itemid=5600215",
-                    "https://media1.tenor.com/images/90f68d48795c51222c60afc7239c930c/tenor.gif?itemid=8701034",
-                    "https://media1.tenor.com/images/ab936c887562756472f83850426bf6ef/tenor.gif?itemid=11956062",
-                    "https://media1.tenor.com/images/1ae62716935f12e0cf26ada43fcb1916/tenor.gif?itemid=13190374",
-                    "https://media1.tenor.com/images/1e0ea8b241a7db2b9c03775133138733/tenor.gif?itemid=10064326",
-                    "https://media1.tenor.com/images/01b264dc057eff2d0ee6869e9ed514c1/tenor.gif?itemid=14346763",
-                    "https://media1.tenor.com/images/76e377271bf00ba61d954b2752713596/tenor.gif?itemid=5075308",
-                    "https://media1.tenor.com/images/702fd09287bbf8a907de7d1961d950e3/tenor.gif?itemid=11710639",
-                    "https://media1.tenor.com/images/1a64ac660387543c5b779ba1d7da2c9e/tenor.gif?itemid=12396068",
-                    "https://media1.tenor.com/images/514efe749cb611eb382713596e3427d8/tenor.gif?itemid=13054528",
-                    "https://media1.tenor.com/images/d9b55173939b863da320ddba91e13b91/tenor.gif?itemid=15148498",
-                    "https://media1.tenor.com/images/2b55eb1befce3e843dec7e8feebf274b/tenor.gif?itemid=10168199"]
-        embedpokeru.add_field(name='Тык :point_up_2: ',
-                              value=f'{author.mention} тыкнул {member.mention} {random.choice(msgend)}')
-        embedpokeru.set_image(url=random.choice(pokegifs))
-        await ctx.send(embed=embedpokeru)
-
-    @commands.command(name='испуг', help=' emotion when u scare')
-    async def scaredru(self, ctx):
-        author = ctx.message.author
-        embedscared = discord.Embed(
-            color=discord.Colour.dark_purple()
-        )
-        scaredgifs = ["https://media1.tenor.com/images/5d83670f205d9c84099e7706c19a776a/tenor.gif?itemid=14126066",
-                      "https://media1.tenor.com/images/3565384f7d317d10863b140159426d86/tenor.gif?itemid=12136289",
-                      "https://media1.tenor.com/images/71f23ded26b2a69caff32fc5b76c7d82/tenor.gif?itemid=6062512",
-                      "https://media1.tenor.com/images/33a05b29ac2b6d9be9c8f23ceab06f46/tenor.gif?itemid=9955707",
-                      "https://media1.tenor.com/images/ee5951b2fd095750b7fcf37c8ae386be/tenor.gif?itemid=10282001",
-                      "https://media1.tenor.com/images/3448e18cdf3171752c60543d252611d3/tenor.gif?itemid=14701398",
-                      "https://media1.tenor.com/images/8dcd340eab8e2229229f73234af9eaf2/tenor.gif?itemid=12003900",
-                      "https://media1.tenor.com/images/9f3f00c9476ac5f7e96d2361a5ac7a71/tenor.gif?itemid=6102056",
-                      "https://media1.tenor.com/images/57e2892ff518e077b3b9f634d72a1c11/tenor.gif?itemid=14086665",
-                      "https://media1.tenor.com/images/0528814a721baaf35c6e420d76f36190/tenor.gif?itemid=14086770",
-                      "https://media1.tenor.com/images/abb122c5c563d526f10050175249aafa/tenor.gif?itemid=10885923",
-                      "https://media1.tenor.com/images/35b9cfb177c5c9c9699083e05ac21568/tenor.gif?itemid=14126061",
-                      "https://media1.tenor.com/images/93bf6903a04939b0fbf3afbb2214b551/tenor.gif?itemid=11468244",
-                      "https://media1.tenor.com/images/eca53bab25127bdda6179fd32d986d57/tenor.gif?itemid=13451251",
-                      "https://media1.tenor.com/images/767f80b3fba5705776926629da6c457e/tenor.gif?itemid=9095356",
-                      "https://media1.tenor.com/images/5a333f9e95956c27475c05fd4f92249b/tenor.gif?itemid=14126063",
-                      "https://media1.tenor.com/images/cd415a3aab4155a1b1d1046ab51ef397/tenor.gif?itemid=14108960",
-                      "https://media1.tenor.com/images/54c057c3792561cce2576c34edcc875d/tenor.gif?itemid=14319979",
-                      "https://media1.tenor.com/images/625596b657bfac84e90e0da53f982f8e/tenor.gif?itemid=15171161",
-                      "https://media1.tenor.com/images/5f20591b4ce8fafc80bed87df34187b9/tenor.gif?itemid=15411739",
-                      "https://media1.tenor.com/images/3f1e2e008b0cf3a0ffd77164fbd9bd9b/tenor.gif?itemid=5945193",
-                      "https://media1.tenor.com/images/987466f3cdc9df617fee75e7077f59e7/tenor.gif?itemid=12942769"]
-        embedscared.add_field(name='Испуг :cold_sweat: ',
-                              value=f'{author.mention} очень напуган {random.choice(msgend)}')
-        embedscared.set_image(url=random.choice(scaredgifs))
-        await ctx.send(embed=embedscared)
-
-    @commands.command(name='хз', help=' emotion i donno')
-    async def idkru(self, ctx):
-        author = ctx.message.author
-        embedidkru = discord.Embed(
-            color=discord.Colour.dark_purple()
-        )
-        idkgifs = ["https://media1.tenor.com/images/7b04c9cdaf8954bb4d304df8f289ab69/tenor.gif?itemid=5252189",
-                   "https://media1.tenor.com/images/dbe1ca7fdb532cf96a9bea40fa1f406e/tenor.gif?itemid=9724581",
-                   "https://media1.tenor.com/images/229489f89e58f703cc3fddcf01bc9872/tenor.gif?itemid=5481020",
-                   "https://media1.tenor.com/images/c8db0c0213c835832785ed2755b283c9/tenor.gif?itemid=5420884",
-                   "https://media1.tenor.com/images/0c4a1a27ab665a8e23b69cc40da6c58e/tenor.gif?itemid=15487155",
-                   "https://media1.tenor.com/images/aea2b3b7a199c1d5de88f71e7f5a3a95/tenor.gif?itemid=15453847",
-                   "https://2static1.fjcdn.com/thumbnails/comments/Idk+lol+i+was+just+posting+smug+anime+faces+_5afa7b8aa9d5b256369566074fb8b8b1.jpg",
-                   "https://media1.tenor.com/images/ce441e4f0e6f115e9eb1b321955c1b80/tenor.gif?itemid=5094560"]
-        embedidkru.add_field(name=" :grey_question:  Не знаю :grey_question: ",
-                             value=f"{author.mention} не знает что сказать или сделать в этой ситуации {random.choice(msgend)}")
-        embedidkru.set_image(url=random.choice(idkgifs))
-        await ctx.send(embed=embedidkru)
 
     @commands.command(name='хмм', help=' emotion think')
     async def thinkingru(self, ctx):
@@ -1305,7 +960,6 @@ class Emotions(commands.Cog):
                              value=f"{author.mention} думает прямо сейчас {random.choice(msgend)}")
         embedthink.set_image(url=random.choice(thinkgifs))
         await ctx.send(embed=embedthink)
-
 
 
 def setup(bot):

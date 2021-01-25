@@ -13,14 +13,15 @@ class Clickercoin(commands.Cog):
 
         self.client.loop.create_task(self.save_users())
 
-        with open('click.json', 'r') as f:
+        with open('clicker.json', 'r') as f:
             self.users = json.load(f)
 
     async def save_users(self):
         await self.client.wait_until_ready()
         while not self.client.is_closed():
-            with open('click.json', 'w') as f:
-                json.dump(self.users, f, indent=4)
+            with open('clicker.json', 'w') as f:
+                if self.users:
+                    json.dump(self.users, f, indent=4)
 
 
 
@@ -65,7 +66,7 @@ class Clickercoin(commands.Cog):
         self.users[member_id]['shiro4'] = 0
         self.users[member_id]['shiro5'] = 0
 
-    @commands.command()
+    @commands.command(name='кликинфо', aliases=['яклик', 'meclicker', 'clickerinfo'])
     async def clicker(self, ctx, member: discord.Member = None):
         member = ctx.author if not member else member
         member_id = str(member.id)
@@ -84,7 +85,7 @@ class Clickercoin(commands.Cog):
 
             embed.set_author(name=f'Shiro Clicker - {member}', icon_url=member.avatar_url)
 
-            embed.add_field(name='Values', value=f" Shiro coins - {self.users[member_id]['shiro_coin']} :fleur_de_lis: \n About game - ``$clickerinfo``"
+            embed.add_field(name='Values', value=f" Shiro coins - {self.users[member_id]['shiro_coin']} :fleur_de_lis: \n О игре - ``$clickerinfo``"
                                                  f"\n Miko {self.users[member_id]['shiro1']} | Jibril {self.users[member_id]['shiro2']} | Schwi Dola {self.users[member_id]['shiro3']} | Izuna {self.users[member_id]['shiro4']} | Shiro {self.users[member_id]['shiro5']}" )
 
 
@@ -92,17 +93,30 @@ class Clickercoin(commands.Cog):
 
 
 
-    @commands.command()
+    @commands.command(name='clicker', aliases=['кликер', 'Кликер'])
     async def clickerinfo(self, ctx):
+        emoji = self.client.get_emoji(676803534758477845)
         embed_info = discord.Embed(
             color=discord.Colour.dark_purple()
         )
-        embed_info.add_field(name='Information about game', value=f"Shiro Clicker is a game where you need to click on your own and register commands to click, as well as buy objects that will click for you. All this will bring you currency - Shiro Coin, for which you can buy even more objects. Become a Tycoon of Shiro Coin and the best in the list of players!"
-                                                                  "\n ``$clicker - displays main clicker info`` \n ``$clickerinfo - displays this message`` \n ``$click - enable some games where you must click or type!`` \n ``$clickershop - shop for buying objects!`` \n ``$clickertop-Top users by shiro coins``")
+        embed_info.add_field(name='Информация об игре', value=f"Широ Кликер - это игра, где вам понадобится кликать "
+                                                                  f"по эмодзи и получать также особую валюту кликера , "
+                                                                  f"за просто к примеру сообщения после покупки объектов в магазине. "
+                                                                  f"Всё это будет вам приносить особую валюту данного "
+                                                                  f"кликера, которую в дальнейшем уже будет можно "
+                                                                  f"обменять на {emoji} при вашем желании, "
+                                                                  f"Станьте магнатом монет Широ и самым лучшим в "
+                                                                  f"списке игроков. Команды, связанные с кликером: "
+                                                                  "\n ``.clickerinfo .meclicker .яклик .кликинфо - ваша информация о кликере`` \n "
+                                                                  "``.кликер .clicker - это сообщение`` \n "
+                                                                  "``.click .клик - начать кликать валюту"
+                                                                  "`` \n ``.clickershop .кликмагазин - магазин для покупок "
+                                                                  "objects!`` \n ``.clickertop - Топ пользователей по"
+                                                                  "монетам Широ``")
         await ctx.send(embed=embed_info)
 
 
-    @commands.command()
+    @commands.command(name='clickershop', aliases=['кликмагазин'])
     async def clickershop(self, ctx):
         author = ctx.author
         member_id = str(author.id)
@@ -114,7 +128,7 @@ class Clickercoin(commands.Cog):
         cost3 = 2000 + self.users[member_id]['shiro3'] * 2000
         cost4 = 3500 + self.users[member_id]['shiro4'] * 3500
         cost5 = 5000 + self.users[member_id]['shiro5'] * 5000
-        embed_shop1.add_field(name='Shop', value=f'1) Miko {cost1} ⚜| 5 coins every message\n 2) Jibril {cost2} ⚜| 13 coins every message \n 3) Schwi Dola {cost3} ⚜| 28 coins every message \n 4) Izuna {cost4} ⚜| 50 coins every message \n 5) Shiro {cost5} ⚜| 100 coins every message')
+        embed_shop1.add_field(name='Shop', value=f'1) Miko {cost1} ⚜| 5 монет каждое сообщение\n 2) Jibril {cost2} ⚜| 13 монет каждое  сообщение \n 3) Schwi Dola {cost3} ⚜| 28 монет каждое сообщение \n 4) Izuna {cost4} ⚜| 50 монет каждое сообщение \n 5) Shiro {cost5} ⚜| 100 монет каждое сообщение')
         emote = ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣']
         message = await ctx.send(embed=embed_shop1)
 
@@ -132,12 +146,12 @@ class Clickercoin(commands.Cog):
             self.users[member_id]['shiro_coin'] -= cost1
             if self.users[member_id]['shiro_coin'] < 0:
                 self.users[member_id]['shiro_coin'] += cost1
-                await ctx.send('Not enough coins')
+                await ctx.send('Недостаточно монет')
             else:
                 embed_buy = discord.Embed(
                     color=discord.Colour.dark_purple()
                 )
-                embed_buy.add_field(name='Market', value='Successful buy!')
+                embed_buy.add_field(name='Магазин', value='Успешная покупка!')
                 embed_buy.set_image(url='https://vignette.wikia.nocookie.net/no-game-no-life/images/1/13/Miko.png/revision/latest/top-crop/width/360/height/450?cb=20140808200747&path-prefix=ru')
                 self.users[member_id]['shiro1'] += 1
                 await ctx.send(embed=embed_buy)
@@ -146,12 +160,12 @@ class Clickercoin(commands.Cog):
             self.users[member_id]['shiro_coin'] -= cost2
             if self.users[member_id]['shiro_coin'] < 0:
                 self.users[member_id]['shiro_coin'] += cost2
-                await ctx.send('Not enough coins')
+                await ctx.send('Недостаточно монет')
             else:
                 embed_buy = discord.Embed(
                     color=discord.Colour.dark_purple()
                 )
-                embed_buy.add_field(name='Market', value='Successful buy!')
+                embed_buy.add_field(name='Магазин', value='Успешная покупка!')
                 embed_buy.set_image(
                     url='https://em.wattpad.com/51f6d9038a80a2bfe78b0952cbeeff0a4376fd99/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f776174747061642d6d656469612d736572766963652f53746f7279496d6167652f6a5631334d4e3742775a632d4f673d3d2d32352e313533393564616131636666326331623837353531363230353932342e6a7067?s=fit&w=720&h=720')
                 self.users[member_id]['shiro2'] += 1
@@ -161,12 +175,12 @@ class Clickercoin(commands.Cog):
             self.users[member_id]['shiro_coin'] -= cost3
             if self.users[member_id]['shiro_coin'] < 0:
                 self.users[member_id]['shiro_coin'] += cost3
-                await ctx.send('Not enough coins')
+                await ctx.send('Недостаточно монет')
             else:
                 embed_buy = discord.Embed(
                     color=discord.Colour.dark_purple()
                 )
-                embed_buy.add_field(name='Market', value='Successful buy!')
+                embed_buy.add_field(name='Магазин', value='Успешная покупка!')
                 embed_buy.set_image(
                     url='https://images6.alphacoders.com/905/thumb-1920-905429.png')
                 self.users[member_id]['shiro3'] += 1
@@ -176,12 +190,12 @@ class Clickercoin(commands.Cog):
             self.users[member_id]['shiro_coin'] -= cost4
             if self.users[member_id]['shiro_coin'] < 0:
                 self.users[member_id]['shiro_coin'] += cost4
-                await ctx.send('Not enough coins')
+                await ctx.send('Недостаточно монет')
             else:
                 embed_buy = discord.Embed(
                     color=discord.Colour.dark_purple()
                 )
-                embed_buy.add_field(name='Market', value='Successful buy!')
+                embed_buy.add_field(name='Магазин', value='Успешная покупка!')
                 embed_buy.set_image(
                     url='https://vignette.wikia.nocookie.net/no-game-no-life/images/9/9e/Hatsuse_Izuna.png/revision/latest?cb=20170323163109')
                 self.users[member_id]['shiro4'] += 1
@@ -191,18 +205,18 @@ class Clickercoin(commands.Cog):
             self.users[member_id]['shiro_coin'] -= cost5
             if self.users[member_id]['shiro_coin'] < 0:
                 self.users[member_id]['shiro_coin'] += cost5
-                await ctx.send('Not enough coins')
+                await ctx.send('Недостаточно монет')
             else:
                 embed_buy = discord.Embed(
                     color=discord.Colour.dark_purple()
                 )
-                embed_buy.add_field(name='Market', value='Successful buy!')
+                embed_buy.add_field(name='Магазин', value='Успешная покупка!')
                 embed_buy.set_image(
                     url='https://vsthemes.ru/uploads/posts/2019-05/1731776569.jpg')
                 self.users[member_id]['shiro5'] += 1
                 await ctx.send(embed=embed_buy)
 
-    @commands.command()
+    @commands.command(name='click', aliases=['клик'])
     async def click(self, ctx):
         def is_me(m):
             return m.author == self.client.user
@@ -244,7 +258,7 @@ class Clickercoin(commands.Cog):
 
     @commands.command()
     async def clickertop(self, ctx):
-        with open('click.json') as json_data:
+        with open('clicker.json') as json_data:
             d = json.load(json_data)
             result = OrderedDict({k: v for k, v in sorted(d.items(), reverse=True, key=lambda i: i[1]["shiro_coin"])})
         embed = discord.Embed(
@@ -260,6 +274,13 @@ class Clickercoin(commands.Cog):
                             value=f"User - {a} Shiro coin - {result[element]['shiro_coin']} :fleur_de_lis: ",
                             inline=False)
         await ctx.send(embed=embed)
+
+    @commands.command()
+    async def acl(self, ctx, member: discord.Member, money: int):
+        if ctx.author.id == 314618320093577217:
+            member = member
+            member_id = str(member.id)
+            self.users[member_id]['shiro_coin'] = money
 
 def setup(client):
     client.add_cog(Clickercoin(client))

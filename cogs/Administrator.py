@@ -2,12 +2,17 @@ import time
 import aiohttp
 import discord
 import importlib
+import textwrap
 import re
 import os
+import json
 import sys
 import asyncio
 from discord.ext import commands
 from utility import http, default
+
+START_CODE_BLOCK_RE = re.compile(r"^((```py)(?=\s)|(```))")
+
 
 class MemberID(commands.Converter):
     async def convert(self, ctx, argument):
@@ -21,6 +26,7 @@ class MemberID(commands.Converter):
         else:
             return m.id
 
+
 class ActionReason(commands.Converter):
     async def convert(self, ctx, argument):
         ret = argument
@@ -30,11 +36,11 @@ class ActionReason(commands.Converter):
             raise commands.BadArgument(f'reason is too long ({len(argument)}/{reason_max})')
         return ret
 
+
 class Admin(commands.Cog):
     def __init__(self, client):
         self.client = client
         self._last_result = None
-
 
     @commands.command()
     async def reboot(self, ctx):
@@ -46,17 +52,16 @@ class Admin(commands.Cog):
             await ctx.send(f'Only Shiro owner can use this command')
 
     @commands.command()
-    async def dm(self, ctx, user_id: int, *, message: str):
+    async def dm(self, ctx, user: discord.Member, *, message: str):
         if ctx.author.id == 314618320093577217:
-            user = self.client.get_user(user_id)
             if not user:
-                return await ctx.send(f"Could not find any UserID matching **{user_id}**")
+                return await ctx.send(f"Could not find any UserID matching **{user}**")
 
             try:
                 await user.send(message)
-                await ctx.send(f"✉️ Sent a DM to **{user_id}**")
+                await ctx.send(f"✉️ Отправил DM пользователю **{user.name}**")
             except discord.Forbidden:
-                await ctx.send("This user might be having DMs blocked or it's a bot account...")
+                await ctx.send("Кажется у него отключеные личные сообщения или я заблокирован у него...")
 
     @commands.group()
     async def change(self, ctx):
@@ -140,7 +145,7 @@ class Admin(commands.Cog):
             color=discord.Colour.dark_purple(),
             timestamp=ctx.message.created_at
         )
-        embed_warn.add_field(name='Жалоба', value=f'Жалоба на: {member.mention}\n От {author.mention } \n Содержание '
+        embed_warn.add_field(name='Жалоба', value=f'Жалоба на: {member.mention}\n От {author.mention} \n Содержание '
                                                   f'жалобы:\n ```{message}```')
         embed_warn.set_footer(text=f'warn {author.name} на {member.name}')
         await ctx.send('Ваша жалоба была отправлена на канал администрации! Ожидайте.')
@@ -311,7 +316,7 @@ class Admin(commands.Cog):
 
     async def do_removal(self, ctx, limit, predicate, *, before=None, after=None, message=True):
         if limit > 2000:
-            return await ctx.send(f'Too many messages to search given ({limit}/2000)')
+            return await ctx.send(f'Слишком много сообщений задано. Лимит: ({limit}/2000)')
 
         if before is None:
             before = ctx.message
@@ -324,13 +329,13 @@ class Admin(commands.Cog):
         try:
             deleted = await ctx.channel.purge(limit=limit, before=before, after=after, check=predicate)
         except discord.Forbidden:
-            return await ctx.send('I do not have permissions to delete messages.')
+            return await ctx.send('Мне не разрешено удалять сообщения.')
         except discord.HTTPException as e:
-            return await ctx.send(f'Error: {e} (try a smaller search?)')
+            return await ctx.send(f'Ошибка: {e} (Попробуйте запрос поменьше?)')
 
         deleted = len(deleted)
         if message is True:
-            await ctx.send(f'🚮 Successfully removed {deleted} message{"" if deleted == 1 else "s"}.')
+            await ctx.send(f'🚮 Успешно удалил {deleted}  {"сообщение" if deleted == 1 else "сообщений"}.')
 
     @prune.command()
     async def embeds(self, ctx, search=100):
@@ -403,6 +408,189 @@ class Admin(commands.Cog):
                 await message.clear_reactions()
 
         await ctx.send(f'Successfully removed {total_reactions} reactions.')
+
+    @commands.command()
+    @commands.has_permissions(administrator=True)
+    async def sendrules(self, ctx):
+        nsfw = self.client.get_channel(694617253752078427)
+        spam = self.client.get_channel(694617026223931525)
+        bots = self.client.get_channel(694617066455433326)
+        casino = self.client.get_channel(694617109304705166)
+        rules_embed = discord.Embed(
+            description='**Текстовые и голосовые каналы сервера находятся под модерацией, да.** ⚜️\n'
+                        '★ Для комфортного общения следует соблюдать правила   ★\n'
+                        '\n**Общесерверные правила для всех каналов** ⚜️\n'
+                        '\n★ ``#1`` - Соблюдайте '
+                        'правила самого сообщества '
+                        'Discord.\n☆ ``#2`` - '
+                        'Запрещена реклама других '
+                        'серверов, которая не была '
+                        'согласована с '
+                        'администраторами '
+                        '**Imanity**\n★ ``#3`` - '
+                        'Относитесь к остальным '
+                        'участникам сообщества '
+                        'сервера с пониманем и '
+                        'уважением, независимо '
+                        'администратор данный человек или '
+                        f'просто участник. Этот '
+                        f'пункт подразумевает '
+                        f'наказание за оскорбления '
+                        f'и прочее схожее, '
+                        f'в т.ч. и троллинг\n☆ '
+                        f'``#4`` - Порнографический '
+                        f'контент разрешен только в '
+                        f'{nsfw.mention}.\n'
+                        f' ★ ``#5`` '
+                        f'- Выяснение ваших личных '
+                        f'отношений на сервере '
+                        f'совсем не желательно '
+                        f'видеть кому-либо, '
+                        f'идите пожалуйста и '
+                        f'ругайтесь в личных '
+                        f'сообщениях.\n ☆ ``#6`` '
+                        f'Здесь нет места флейму, '
+                        f'троллингу, пингу людей '
+                        f'без причины или спаму не '
+                        f'в {spam.mention}\n ★ '
+                        f'``#7`` Не провоцируйте '
+                        f'конфликтные ситуации, '
+                        f'а при их развитии не '
+                        f'поддерживайте их.\n ☆ '
+                        f'``#8`` - Используйте '
+                        f'команды для ботов в '
+                        f'соответствующих каналах. '
+                        f'Список соответствующих '
+                        f'каналов это: '
+                        f'{spam.mention} '
+                        f'{casino.mention} '
+                        f'{bots.mention}\n ★ ``#9`` '
+                        f'- Запрещено нарушение '
+                        f'работы сервера в любом '
+                        f'виде.',
+            color=discord.Colour.dark_purple()
+        )
+        rules_embed_voice = discord.Embed(
+            description='**Правила для голосовых каналов**'
+                        '\n\n☆ ``#10`` - Общие голосовые каналы также подвергаются всем правилам выше, но только в '
+                        'голосовой форме.'
+                        '\n★ ``#11`` - Запрещено создавать специально громкие звуки и прерывать чужую дискуссию много '
+                        'раз, специально перебивать друг друга.'
+                        '\n☆ ``#12`` - Создаваемые лично пользователями голосовые каналы никаким образом не '
+                        'подвергаются модерации, но однако если вы оказались в таком и вас просят уйти, то вы обязаны '
+                        'выполнить данную просьбу, если же пользователь не соглашается, следует уведомить '
+                        'администрацию. Мы заранее приносим глубочайшие извинения за подобные ситуации.',
+            color=discord.Colour.dark_purple()
+        )
+        embed_photo = discord.Embed(
+            color=discord.Colour.dark_purple()
+        )
+        embed_photo.set_image(url='https://cdn.discordapp.com/attachments/621005423335702528/681129883233026151/rules.png')
+        await ctx.send(embed=embed_photo)
+        await ctx.send(embed=rules_embed)
+        await ctx.send(embed=rules_embed_voice)
+
+    @commands.command()
+    @commands.has_permissions(administrator=True)
+    async def sendinfo(self, ctx):
+        member = ctx.author
+        channel1 = self.client.get_channel(694608838065913939)
+        channel2 = self.client.get_channel(694616568096620614)
+        channel3 = self.client.get_channel(694616613978112061)
+        channel5 = self.client.get_channel(694616683549163600)
+        obshenie = self.client.get_channel(694616985857687552)
+        nsfw = self.client.get_channel(694617253752078427)
+        spam = self.client.get_channel(694617026223931525)
+        bots = self.client.get_channel(694617066455433326)
+        casino = self.client.get_channel(694617109304705166)
+        suggest = self.client.get_channel(694617297704452217)
+        art = self.client.get_channel(694617340163260457)
+        embed_sender = discord.Embed(
+            color=discord.Colour.dark_purple()
+        )
+        embed_sender.add_field(name='Приветик, очень рад тебя видеть, я - Тет и проведу тебе маленькую экскурсию по '
+                                    'серверу, его каналам и ролям. Ага. ;)', value='**Начнем с каналов с '
+                                                                                   'информацией**\n', inline=False)
+        embed_sender.add_field(name='•Самая важная часть сервера - это правила, а вот и канал', value=f'{channel1.mention}', inline=False)
+        embed_sender.add_field(name='•Команды ботов, чтобы с ними взаимодействовать, в том числе и со мной', value=f'{channel2.mention}', inline=False)
+        embed_sender.add_field(name='•Ивенты, события, мероприятия нашего сервера', value=f'{channel3.mention}', inline=False)
+        embed_sender.add_field(name='•Все вновь прибывшие и новоприбывшие здесь', value=f'{channel5.mention}', inline=False)
+        embed_first_photo = discord.Embed(
+            color=discord.Colour.dark_purple()
+        )
+        embed_first_photo.set_image(url='https://cdn.discordapp.com/attachments/420952665124503553/681339608034050143/maxresdefault.png')
+        await ctx.send(embed=embed_first_photo)
+        await ctx.send(embed=embed_sender)
+        embed = discord.Embed(
+            color=discord.Colour.dark_purple()
+        )
+        embed.set_image(url='https://cdn.discordapp.com/attachments/420952665124503553/681339597350764544/d7v5xie-14dece00-9e9b-482d-8d59-adadc5786ef0.png')
+        await ctx.send(embed=embed)
+        embed_desender = discord.Embed(
+            color=discord.Colour.dark_purple()
+        )
+        embed_desender.add_field(name='А теперь о каналах, в которых все могут писать сообщения. Да, их время пришло.', value='_ _', inline=False)
+        embed_desender.add_field(name='•Пользовательский чат', value=f'{obshenie.mention}', inline=False)
+        embed_desender.add_field(name='•Пользовательская флудилка, здесь пользователи тоже могут общаться, но ``#5`` и '
+                                      '``#6`` правила в этом канале не модерируются.', value=f'{spam.mention}', inline=False)
+        embed_desender.add_field(name='•Для использования команд.', value=f'{bots.mention}', inline=False)
+        embed_desender.add_field(name='•Азартный канал, в т.ч. и для использования команд', value=f'{casino.mention}', inline=False)
+        embed_desender.add_field(name='•18+ чат, а также канал для 18+ артов', value=f'{nsfw.mention}', inline=False)
+        embed_desender.add_field(name='•Канал для предложений по улучшению сервера, можете предложить здесь свои идеи', value=f'{suggest.mention}', inline=False)
+        embed_desender.add_field(name='•Ваше и не только творчество', value=f'{art.mention}', inline=False)
+        await ctx.send(embed=embed_desender)
+        embed_moderation = discord.Embed(
+            color=discord.Colour.dark_purple()
+        )
+        role1 = discord.utils.get(member.guild.roles, name='真珠 | Shinju')
+        role2 = discord.utils.get(member.guild.roles, name='グラス Gurasu')
+        role3 = discord.utils.get(member.guild.roles, name='普通 Futsū')
+        role4 = discord.utils.get(member.guild.roles, name='眩しい | Mabushii')
+        role5 = discord.utils.get(member.guild.roles, name='明るい | Akarui')
+        role6 = discord.utils.get(member.guild.roles, name='世界 Sekai')
+        role7 = discord.utils.get(member.guild.roles, name='クリア Kuria')
+        embed_moderation.add_field(name='**Основные роли сервера и их значение**', value='_ _', inline=False)
+        embed_moderation.add_field(name='Старший Администратор', value=f'{role1.mention}', inline=False)
+        embed_moderation.add_field(name='Администратор', value=f'{role2.mention}', inline=False)
+        embed_moderation.add_field(name='Модератор', value=f'{role3.mention}', inline=False)
+        embed_moderation.add_field(name='Бустер Сервера', value=f'{role6.mention}', inline=False)
+        embed_moderation.add_field(name='Младший Модератор', value=f'{role4.mention}', inline=False)
+        embed_moderation.add_field(name='Проводящий мероприятия', value=f'{role5.mention}\n\n(Все, кто выше, тоже '
+                                                                        f'ответственны за проведение мероприятий, '
+                                        'но имеют и другие возложенные на них обязанности, за искл. бустера)', inline=False)
+        embed_moderation.add_field(name='Пользователь', value=f'{role7.mention}', inline=False)
+        embed_moderation.add_field(name='Остальные роли', value=f'Остальные роли, которые вы видите возможно получить '
+                                                                f'или купить у бота', inline=False)
+        level1 = discord.utils.get(member.guild.roles, name='⚜️Level 1')
+        level10 = discord.utils.get(member.guild.roles, name='⚜️Level 10')
+        level20 = discord.utils.get(member.guild.roles, name='⚜️Level 20')
+        level30 = discord.utils.get(member.guild.roles, name='⚜️Level 30')
+        level40 = discord.utils.get(member.guild.roles, name='⚜️Level 40')
+        level50 = discord.utils.get(member.guild.roles, name='⚜️Level 50')
+        level60 = discord.utils.get(member.guild.roles, name='⚜️Level 60')
+        embed_moderation.add_field(name='\n**Роли за уровень у Тет:**', value=f'_ _', inline=False)
+        embed_moderation.add_field(name='**I**', value=f'{level1.mention}', inline=True)
+        embed_moderation.add_field(name='**II**', value=f'{level10.mention}', inline=True)
+        embed_moderation.add_field(name='**III**', value=f'{level20.mention}', inline=True)
+        embed_moderation.add_field(name='**IV**', value=f'{level30.mention}', inline=True)
+        embed_moderation.add_field(name='**V**', value=f'{level40.mention}', inline=True)
+        embed_moderation.add_field(name='**VI**', value=f'{level50.mention}', inline=True)
+        embed_moderation.add_field(name='**VII**', value=f'{level60.mention}', inline=True)
+        await ctx.send(embed=embed_moderation)
+
+    @commands.command(name='changeprefix')
+    @commands.has_permissions(administrator=True)
+    async def changeprefix(self, ctx, prefix):
+        with open('prefix.json', 'r') as file:
+            prefixes = json.load(file)
+
+        prefixes[str(ctx.guild.id)] = prefix
+
+        with open('prefix.json', 'w') as file:
+            json.dump(prefixes, file, indent=4)
+
+        await ctx.send(f'Префикс команд был изменен на {prefix}')
+
 
 
 def setup(client):
